@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'PingFang Bold';  //重命名字体名
+    src: url-loader('./PingFangMedium.ttf');  //引入字体
+    font-weight: normal;
+    font-style: normal;
+}

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.DictionaryMapper">
+    <sql id="sqlDictionarySelect">
+        SELECT name,value as id,
+        <choose>
+            <when test="language == 'US'">
+                value_en as valueMeaning
+            </when>
+            <otherwise>
+                value_cn as valueMeaning
+            </otherwise>
+        </choose>
+        ,op_user,op_time,remark
+        FROM t_dictionary WHERE 1=1
+        AND name=#{name};
+    </sql>
+
+    <resultMap id="dictionaryBase" type="DictionaryDO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="value" property="value"></result>
+        <result column="valueMeaning" property="valueMeaning"></result>
+        <result column="op_user" property="opUser"></result>
+        <result column="op_time" property="opTime"></result>
+        <result column="remark" property="remark"></result>
+    </resultMap>
+
+    <!--根据条件查询数据字典-->
+    <select id="findDictionaryByName" resultMap="dictionaryBase">
+        <include refid="sqlDictionarySelect"></include>
+    </select>
+
+    <!--查询数据字典-->
+    <select id="query" resultType="DictionaryDO">
+        select t.id,t.name,t.value,t.value_cn as valueCn ,t.value_en as valueEn,t.remark,
+        u.name as opUser,DATE_FORMAT( t.op_time, '%Y-%m-%d %H:%i:%s') AS opTime from (
+        select t.* from (
+        select t.* from t_dictionary t
+        where 1=1
+        <if test="name !=null">
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="valueMeaning != null and valueMeaning !='' ">
+            and value_cn like concat('%',#{valueMeaning},'%')
+        </if>
+        )t
+        )t left join t_user u on u.username=t.op_user  ORDER BY opTime DESC
+    </select>
+
+    <!--修改数据信息-->
+    <insert id="addDictionary">
+        insert into t_dictionary
+		(
+		name,value,value_cn,value_en,op_user,op_time,remark
+		)
+		values
+		(
+		#{name},
+		#{value},
+		#{valueCn},
+		#{valueEn},
+		#{opUser},
+		sysdate(),
+		#{remark}
+		)
+    </insert>
+
+    <!-- 修改 -->
+    <update id="updateDictionary">
+        UPDATE t_dictionary
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="name !=null ">name=#{name},</if>
+            <if test="value !=null ">value=#{value},</if>
+            <if test="valueCn !=null ">value_cn=#{valueCn},</if>
+            <if test="valueEn !=null ">value_en=#{valueEn},</if>
+            <if test="opUser !=null ">op_user=#{opUser},</if>
+            <if test="opTime !=null ">op_time=sysdate(),</if>
+            <if test="remark !=null ">remark=#{remark},</if>
+        </trim>
+    </update>
+    <!-- 删除 -->
+    <delete id="delDictionary" parameterType="long">
+        delete from t_dictionary where
+        id=#{id}
+    </delete>
+    <!--根据ID查询信息-->
+    <select id="queryDictionaryById" resultType="DictionaryDO">
+        select t.id,t.name,t.value,t.value_cn valueCn,t.value_en valueEn,t.remark,
+		u.name opUser,t.op_time opTime from t_dictionary t left join t_user u on u.username=t.op_user where
+		t.id = #{id}
+    </select>
+
+    <!-- 根据参数查询数据字典 -->
+    <select id="queryByPamram" resultType="DictionaryDO">
+        select t.id,t.name,t.value,t.value_cn as valueCn,t.value_en as valueEn,t.remark,
+        u.name as opUser,t.op_time as opTime
+        from t_dictionary t left join t_user u on u.username=t.op_user
+        <where>
+            <if test="name!=null and name !=''">
+                and t.name = #{name}
+            </if>
+            <if test="value!=null and value !=''">
+                and t.value = #{value}
+            </if>
+        </where>
+    </select>
+
+    <!-- 校验参数 -->
+    <select id="checkPamram" resultType="DictionaryDO">
+        select t.id,t.name,t.value,t.value_cn as valueCn,t.value_en as valueEn,t.remark,
+        u.name as opUser,t.op_time as opTime
+        from t_dictionary t left join t_user u on u.username=t.op_user
+        <where>
+            <if test="name!=null and name !=''">
+                and t.name = #{name}
+            </if>
+            <if test="value!=null and value !=''">
+                and t.value = #{value}
+            </if>
+        </where>
+    </select>
+
+    <select id="findName" resultType="list">
+       SELECT DISTINCT name FROM `t_dictionary`
+    </select>
+</mapper>

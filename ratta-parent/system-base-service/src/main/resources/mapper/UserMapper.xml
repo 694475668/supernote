@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.UserMapper">
+
+    <sql id="sqlSelectBase">
+        select id,username,name,phone,address,email,pwd,counts,status,is_active isActive,last_login_date lastLoginDate,create_time createTime
+        ,create_user createUser,update_time updateTime,update_user updateUser,modify_pwd modifyPwd
+    </sql>
+
+    <resultMap id="userBase" type="UserDO">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="name" column="name"></result>
+        <result property="phone" column="phone"></result>
+        <result property="roleId" column="roleId"></result>
+        <result property="roleName" column="roleName"></result>
+        <result property="address" column="address"></result>
+        <result property="pwd" column="pwd"></result>
+        <result property="pid" column="pid"></result>
+        <result property="email" column="email"></result>
+        <result property="counts" column="counts"></result>
+        <result property="status" column="status"></result>
+        <result property="isActive" column="is_active"></result>
+        <result property="lastLoginDate" column="last_login_date"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+        <result property="modifyPwd" column="modify_pwd"></result>
+        <collection property="roleVOList" ofType="RoleDO">
+            <id property="id" column="roleId"></id>
+            <result property="name" column="roleName"></result>
+        </collection>
+    </resultMap>
+    <!--根据用户名和密码查询用户-->
+    <select id="getUserByNameAndPWD" resultType="UserDO">
+        <include refid="sqlSelectBase"></include>
+        from t_user where BINARY username=#{username} and pwd=#{pwd};
+    </select>
+
+    <!-- getUserByUserName 根据用户名查询用户-->
+    <select id="getUserByName" parameterType="String"
+            resultType="UserDO">
+        <include refid="sqlSelectBase"></include>
+        from t_user where BINARY username=#{username};
+    </select>
+
+    <!-- 更新用户密码输错次数 -->
+    <update id="errorLogin" parameterType="long">
+		update t_user t set t.counts = t.counts+1 where t.id =#{id}
+	</update>
+
+    <!-- 清除用户密码输错次数 -->
+    <update id="freshErrorLogin" parameterType="long">
+		update t_user t set t.counts =0 where t.id =#{id}
+	</update>
+
+    <!-- 查询锁定用户 -->
+    <select id="selectLocked" resultType="long">
+	select count(1)
+		from t_user t
+		where t.is_active = 'Y'
+		and t.counts >=
+		(
+		select cast(t.value as decimal(10,2) )
+		from t_reference t
+		where
+		t.serial = #{serial}
+		and t.name = #{name}
+		)
+		and t.id=#{id}
+	</select>
+
+    <!-- 锁定用户操作 -->
+    <update id="lockUser" parameterType="long">
+		update t_user t set t.status = 0 where t.id =#{id}
+	</update>
+
+    <!--根据用户ID查询用户信息-->
+    <select id="getUserById" resultType="UserDO"
+            parameterType="long">
+        <include refid="sqlSelectBase"></include>
+        from t_user where id=#{id};
+    </select>
+
+    <!-- 查询剩余密码登录次数 -->
+    <select id="selectErrorCounts" parameterType="map" resultType="long">
+		SELECT (
+		SELECT CAST(t.value AS DECIMAL(10,0) )
+		FROM t_reference t
+		WHERE
+		t.serial = #{serial}
+		AND t.name=#{name}
+		) - u.counts
+		FROM t_user u
+		WHERE u.id=#{id}
+    </select>
+
+
+    <!--修改用户信息-->
+    <update id="updateUser">
+        UPDATE t_user
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="username !=null ">username=#{username},</if>
+            <if test="name !=null ">name=#{name},</if>
+            <if test="phone !=null ">phone=#{phone},</if>
+            <if test="address !=null ">address=#{address},</if>
+            <if test="email !=null ">email=#{email},</if>
+            <if test="pwd !=null ">pwd=#{pwd},</if>
+            <if test="counts !=null ">counts=#{counts},</if>
+            <if test="status !=null ">status=#{status},</if>
+            <if test="isActive !=null ">is_active=#{isActive},</if>
+            <if test="lastLoginDate !=null ">last_login_date=sysdate(),</if>
+            <if test="createTime !=null ">create_time=sysdate(),</if>
+            <if test="createUser !=null ">create_user=#{createUser},</if>
+            <if test="updateTime !=null ">update_time=sysdate(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+            <if test="modifyPwd !=null ">modify_pwd=#{modifyPwd},</if>
+        </trim>
+    </update>
+
+    <!--根据pid查询用户信息-->
+    <select id="queryUserByPid" resultMap="userBase">
+        SELECT * FROM (SELECT s.id,s.username,s.`name`,group_concat(e.id) AS roleId,group_concat(e.`name`) AS
+        roleName,s.phone,s.email,s.update_user,s.update_time,s.`status`,s.pid
+        FROM
+        t_role e
+        INNER JOIN (
+        SELECT u.id,u.username,u.`name`,u.phone,u.email,u.pid,u.update_user,DATE_FORMAT( u.update_time, '%Y-%m-%d %H:%i:%s')
+        AS update_time,u.`status`,r.trole_id
+        FROM t_user u
+        INNER JOIN t_user_trole r
+        WHERE
+        u.id = r.tuser_id
+        ) s ON e.id = s.trole_id
+        WHERE
+        1 = 1
+        GROUP BY s.id) g WHERE 1=1 and id <![CDATA[ <> ]]> '1'
+        and pid=#{id}
+        ORDER BY update_time DESC
+    </select>
+
+    <!-- 保存用户数据 -->
+    <insert id="saveUser" parameterType="UserDO">
+		insert into t_user(username,name,phone,email,pwd,
+		counts,status,is_active,pid,create_time,create_user,update_time,update_user,modify_pwd)
+		values
+		(
+		#{username},
+		#{name},
+		#{phone},
+		#{email},
+		#{pwd},
+		#{counts},
+		#{status},
+		#{isActive},
+		#{pid},
+		sysdate(),
+		#{createUser},
+		sysdate(),
+		#{updateUser},
+		#{modifyPwd}
+		)
+    </insert>
+
+    <!-- 获取最新 SEQUENCE 值 -->
+    <select id="getMaxSEQ" resultType="long">
+		select ifnull(max(t.id),0) from t_user t
+	</select>
+
+    <!-- 保存用户与角色的对应关系 -->
+    <insert id="saveUserRole">
+        insert into
+        t_user_trole values(#{userId},#{roleId})
+    </insert>
+
+    <!-- deleteUserRoles 删除用户的角色数据 -->
+    <delete id="delUserRoles">
+        delete from t_user_trole where tuser_id =#{id}
+    </delete>
+
+    <!-- 删除用户 -->
+    <delete id="delUser">
+		delete from t_user where id = #{id}
+	</delete>
+
+    <!--通过用户ID查询角色信息-->
+    <select id="queryRoleByUserId" resultType="RoleDO">
+        SELECT  r.id,r.name
+        FROM t_user_trole t
+        INNER JOIN t_role r
+        ON t.trole_id=r.id
+        WHERE tuser_id=#{userId}
+    </select>
+    <!--多个用户id获取用户信息-->
+    <select id="getUserArray" resultType="UserDO">
+        SELECT id,username FROM t_user WHERE id IN
+        <foreach collection="array" item="value" open="(" separator="," close=")">
+            #{value}
+        </foreach>
+    </select>
+</mapper>

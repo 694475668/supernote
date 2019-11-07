@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.SearchMapper">
+	<resultMap id="search" type="SearchDO">
+		<id column="id" property="id" />
+		<result column="type" property="type" />
+		<result column="title" property="title" />
+		<result column="description" property="description" />
+	</resultMap>
+	
+	<!-- 搜索-->
+    <select id="search" parameterType="hashmap" resultMap="search">
+        select d.id,d.type,d.title,d.description from (
+            <if test="language =='zh-CN' ">
+		            (select distinct id,
+		            (case type
+                    when '0' then '1'
+                    else '2' end)type,
+                    title_cn title, description_cn description
+					from t_firmware_manual
+					where line = '0' 
+					and title_cn like concat('%',#{key},'%')
+					or description_cn like concat('%',#{key},'%')
+					order by seq asc)
+			</if>
+			<if test="language =='en' ">
+					(select distinct id,
+					(case type
+                    when '0' then '1'
+                    else '2' end)type,
+					title_en title,description_en description
+					from t_firmware_manual
+					where line = '0' 
+					and title_en like concat('%',#{key},'%')
+					or description_en like concat('%',#{key},'%')
+					order by seq asc)
+			</if>
+            union all 
+            <if test="language =='zh-CN' ">
+		            (select distinct t.id,
+		            (case s.type
+                    when '0' then '3'
+                    else '4' end)type,
+					t.question_cn title,t.answer_cn description 
+					from t_faq_item t  LEFT JOIN t_faq_title s ON t.faq_title_id = s.id 
+					where t.line = '0' 
+				    and t.question_cn like concat('%',#{key},'%')
+				    or t.answer_cn like concat('%',#{key},'%')
+			        order by t.seq asc)
+			</if>
+			<if test="language =='en' ">
+		            (select distinct t.id, 
+		            (case s.type
+                    when '0' then '3'
+                    else '4' end)type,
+					t.question_en title,t.answer_en description
+					from t_faq_item t  LEFT JOIN t_faq_title s ON t.faq_title_id = s.id 
+					where t.line = '0' 
+				    and t.question_en like concat('%',#{key},'%')
+					or t.answer_en like concat('%',#{key},'%')
+					order by t.seq asc)
+			</if>
+        ) d 
+	</select>
+</mapper>

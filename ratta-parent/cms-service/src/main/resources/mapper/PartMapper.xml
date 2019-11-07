@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.PartMapper">
+	<resultMap id="partDO" type="PartDO">
+		<id column="id" property="id" />
+		<result column="serial_number" property="serialNumber" />
+		<result column="product_number" property="productNumber" />
+		<result column="seq" property="seq" />
+		<result column="product_url" property="productUrl" />
+		<result column="match_url" property="matchUrl" />
+		<result column="colour_name_cn" property="colourNameCn" />
+		<result column="colour_name_en" property="colourNameEn" />
+		<result column="colour_url" property="colourUrl" />
+		<result column="home_flag" property="homeFlag" />
+		<result column="home_url" property="homeUrl" />
+		<result column="product_type" property="productType" />
+		<result column="line" property="line" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, serial_number, product_number,seq, product_url,
+		match_url,
+		colour_name_cn,colour_name_en,
+		colour_url,
+		home_flag,
+		home_url,
+		product_type,
+		line,
+		create_time,
+		create_user,
+		update_time,
+		update_user
+	</sql>
+
+	<select id="queryByProductType" resultMap="partDO"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from
+		( select
+		<include refid="Base_Column_List" />
+		,FIND_IN_SET( #{productType},t.product_type ) result
+		FROM t_part t) t
+		WHERE t.result != '0'
+		and line = #{line}
+		order by
+		product_type,seq asc
+	</select>
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="homeFlag !=null and homeFlag !='' ">
+			and t.home_flag = #{homeFlag}
+		</if>
+		<if test="serialNumber !=null and serialNumber !='' ">
+			and t.serial_number = #{serialNumber}
+		</if>
+		<if test="productNumber !=null and productNumber !='' ">
+			and t.product_number = #{productNumber}
+		</if>
+		<if test="line !=null and line !='' ">
+			and t.line = #{line}
+		</if>
+	</sql>
+
+	<select id="query" resultMap="partDO" parameterType="partDO">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM
+		( SELECT
+		<include refid="Base_Column_List" />
+		<if test="productType !=null and productType !='' ">
+			,FIND_IN_SET( #{productType},t.product_type ) result
+		</if>
+		FROM t_part t) t
+		WHERE 1=1
+		<if test="productType !=null and productType !='' ">
+			and t.result != '0'
+		</if>
+		<include refid="select_param" />
+	</select>
+
+	<select id="queryBySeqAndLine" parameterType="hashmap"
+		resultMap="partDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part
+		where serial_number = #{serialNumber} and seq = #{seq}
+		and
+		line = #{line} and product_type = #{productType}
+	</select>
+
+	<select id="queryBySerialNumberAndSeq" resultMap="partDO"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from t_part
+		where serial_number = #{serialNumber} and seq = #{seq} and
+		product_type = #{productType}
+	</select>
+
+	<select id="queryOrderByDeq" resultMap="partDO"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from t_part
+		where serial_number = #{serialNumber} and line = #{line}
+		order by product_type,seq asc
+	</select>
+
+	<select id="queryById" parameterType="Integer"
+		resultMap="partDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part
+		where id = #{id}
+	</select>
+
+	<insert id="insert" parameterType="partDO">
+		insert into t_part
+		(
+		serial_number, product_number,seq, product_url,
+		match_url,
+		colour_name_cn,colour_name_en,
+		colour_url,
+		home_flag,
+		home_url,
+		product_type,
+		line,
+		create_time,
+		create_user,
+		update_time, update_user)
+		values (#{serialNumber},
+		#{productNumber},
+		#{seq},
+		#{productUrl},
+		#{matchUrl},
+		#{colourNameCn},
+		#{colourNameEn},
+		#{colourUrl},
+		#{homeFlag},
+		#{homeUrl},
+		#{productType},
+		#{line},
+		#{createTime},
+		#{createUser},
+		#{updateTime},
+		#{updateUser})
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="partDO">
+		update t_part set
+		serial_number = #{serialNumber},
+		product_number = #{productNumber},
+		product_url
+		=#{productUrl},
+		match_url = #{matchUrl},
+		colour_name_cn =
+		#{colourNameCn},
+		colour_name_en =
+		#{colourNameEn},
+		colour_url =
+		#{colourUrl},
+		home_flag =
+		#{homeFlag},
+		home_url =
+		#{homeUrl},
+		line =
+		#{line},
+		update_time = #{updateTime},
+		update_user =
+		#{updateUser}
+		where id
+		= #{id}
+	</update>
+
+	<update id="updateLine" parameterType="partDO">
+		update t_part set
+		line =
+		#{line},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where
+		id = #{id}
+	</update>
+
+	<update id="updateHomeFlag" parameterType="hashmap">
+		update t_part set
+		home_flag
+		=
+		1 where serial_number = #{serialNumber}
+	</update>
+
+
+	<update id="updateSeq" parameterType="partDO">
+		update t_part set
+		seq =
+		#{seq},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where id
+		= #{id}
+	</update>
+
+	<!-- 查询最大的排序 -->
+	<select id="queryMaxSeq" parameterType="hashmap"
+		resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end from t_part where
+		serial_number =
+		#{serialNumber} and
+		product_type =
+		#{productType}
+	</select>
+
+
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_part set
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+			#{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+			#{oldSeq}
+		</if>
+		and serial_number = #{serialNumber} and product_type = #{productType}
+		and line = #{line}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		delete from t_part
+		where
+		id =
+		#{id}
+	</delete>
+
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>icon_more</title>
+    <desc>Created with Sketch.</desc>
+    <g id="服务" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="04.1.1-FAQ列表" transform="translate(-1207.000000, -1378.000000)">
+            <g id="icon_more" transform="translate(1207.000000, 1378.000000)">
+                <g>
+                    <rect stroke="#979797" fill="#D8D8D8" opacity="0" x="0.5" y="0.5" width="19" height="19"></rect>
+                    <g id="箭头" transform="translate(4.000000, 3.000000)" fill-rule="nonzero">
+                        <rect id="矩形" fill="#000000" opacity="0" x="0" y="0" width="12" height="12"></rect>
+                        <path d="M4.10171951,12.7526701 C3.92886735,12.7526701 3.75527438,12.693338 3.61391972,12.5721219 C3.29897209,12.3025823 3.26235762,11.8290771 3.53262432,11.5144999 L7.61371889,6.75261472 L3.53262434,1.99071584 C3.26235763,1.67613862 3.29898582,1.20261971 3.61391973,0.933093794 C3.92812656,0.66465163 4.40201586,0.700182353 4.67081471,1.01438919 L9.17086998,6.26444453 C9.41183413,6.5453293 9.41183413,6.95988642 9.17086998,7.2407712 L4.67081471,12.4908265 C4.52286147,12.6636924 4.31265403,12.7526701 4.10171951,12.7526701 Z" id="路径" fill="#C9A060"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

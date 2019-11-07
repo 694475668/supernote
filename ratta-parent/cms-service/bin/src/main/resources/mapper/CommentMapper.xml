@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.CommentMapper">
+
+    <resultMap id="sqlSelectBase" type="CommentDO">
+        <id property="id" column="id"></id>
+        <result property="seq" column="seq"></result>
+        <result property="blogId" column="blog_id"></result>
+        <result property="userName" column="user_name"></result>
+        <result property="content" column="content"></result>
+        <result property="seoKeywordCn" column="seo_keyword_cn"></result>
+        <result property="seoKeywordEn" column="seo_keyword_en"></result>
+        <result property="seoDescriptionCn" column="seo_description_cn"></result>
+        <result property="seoDescriptionEn" column="seo_description_en"></result>
+        <result property="audit" column="audit"></result>
+        <result property="roofPlacement" column="roof_placement"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+        <result property="titleCn" column="title_cn"></result>
+    </resultMap>
+
+    <!--  根据id的查询博客所属评论  -->
+    <select id="listComment" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language=='CN-EN'">
+                SELECT * FROM (SELECT
+                id,seq,blog_id,user_name,content,seo_keyword_cn,seo_description_cn,roof_placement,audit,create_time,create_user,update_time,update_user
+                FROM `t_comment` WHERE roof_placement='0' and audit='1' AND blog_id=#{blogId} ORDER BY seq
+                asc) a union all
+                SELECT * FROM (SELECT
+                id,seq,blog_id,user_name,content,seo_keyword_cn,seo_description_cn,roof_placement,audit,create_time,create_user,update_time,update_user
+                FROM `t_comment` WHERE roof_placement='1' and audit='1' AND blog_id=#{blogId} ORDER BY
+                create_time DESC
+                ) b
+            </when>
+            <otherwise>
+                select c.*,b.title_cn from t_comment c INNER JOIN t_blog b on b.id=c.blog_id where 1=1
+                <if test="roofPlacement!=null and roofPlacement!=''">
+                    and c.roof_placement=#{roofPlacement}
+                </if>
+                <if test="audit!=null and audit!=''">
+                    and c.audit=#{audit}
+                </if>
+                <if test="id!=null and id!=''">
+                    and c.blog_id=#{id}
+                </if>
+                ORDER BY blog_id,roof_placement,seq asc
+            </otherwise>
+        </choose>
+    </select>
+
+    <!-- 添加评论   -->
+    <insert id="insertComment">
+        insert into t_comment(blog_id,user_name,content,seo_keyword_cn,seo_keyword_en,seo_description_cn,seo_description_en,create_time,create_user,update_time,update_user) values (#{blogId},#{userName},#{content}
+        ,#{seoKeywordCn},#{seoKeywordEn},#{seoDescriptionCn},#{seoDescriptionEn},now(),#{createUser},now(),#{updateUser})
+    </insert>
+
+    <!-- 修改评论 -->
+    <update id="updateComment">
+        UPDATE t_comment
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="seq !=null ">seq=#{seq},</if>
+            <if test="blogId !=null ">blog_id=#{blogId},</if>
+            <if test="userName !=null ">user_name=#{userName},</if>
+            <if test="content !=null ">content=#{content},</if>
+            <if test="seoKeywordCn !=null ">seo_keyword_cn=#{seoKeywordCn},</if>
+            <if test="seoKeywordEn !=null ">seo_keyword_en=#{seoKeywordEn},</if>
+            <if test="seoDescriptionCn !=null ">seo_description_cn=#{seoDescriptionCn},</if>
+            <if test="seoDescriptionEn !=null ">seo_description_en=#{seoDescriptionEn},</if>
+            <if test="roofPlacement !=null ">roof_placement=#{roofPlacement},</if>
+            <if test="audit !=null ">audit=#{audit},</if>
+            <if test="updateTime !=null ">update_time=now(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+        </trim>
+    </update>
+
+    <!-- 修改序号-->
+    <update id="updateAllSeq" parameterType="hashmap">
+        update t_comment set
+        <if test="oldSeq lt newSeq">
+            seq = seq+1 where seq &gt; #{oldSeq} and seq>= #{newSeq}
+        </if>
+        <if test="oldSeq gt newSeq">
+            seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;=#{oldSeq}
+        </if>
+        and roof_placement='0' and blog_id=#{blogId}
+    </update>
+
+    <select id="getCommentById" resultMap="sqlSelectBase">
+        select * from  t_comment where id=#{id}
+    </select>
+    <delete id="delCommentByBlogId">
+        DELETE FROM t_comment WHERE blog_id=#{blogId}
+    </delete>
+</mapper>

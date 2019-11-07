@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.CustomizeMapper" >
+  <resultMap id="customizeDO" type="CustomizeDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="product" property="product" jdbcType="VARCHAR" />
+    <result column="cover_color" property="coverColor" jdbcType="VARCHAR" />
+    <result column="pen_color" property="penColor" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+     <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="country_code" property="countryCode" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="flag" property="flag" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="remark_time" property="remarkTime" jdbcType="TIMESTAMP" />
+    <result column="remark_user" property="remarkUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="select_customize_list" >
+    id, user_name, product, cover_color, pen_color, remark, area, country_code, telephone, email, description, flag, create_time, remark_time, remark_user
+  </sql>
+
+  <select id="select" resultMap="customizeDO" parameterType="hashmap" >
+    select 
+    <include refid="select_customize_list" />
+    from t_customize
+    where 1=1
+    	<if test="id != null and id !='' " >
+        	and id = #{id}
+      	</if>
+      	<if test="userName != null and userName !='' " >
+        	and user_name = #{userName}
+      	</if>
+      	<if test="telephone != null and telephone !='' " >
+        	and telephone = #{telephone}
+      	</if>
+      	<if test="email != null and email !='' " >
+        	and email = #{email}
+      	</if>
+  </select>
+  
+  <insert id="insert" parameterType="customizeDO" >
+    insert into t_customize (user_name, product, cover_color, 
+    			pen_color, area, country_code, telephone, email, description, create_time
+      )
+    values (#{userName}, #{product}, #{coverColor}, 
+      #{penColor}, #{area}, #{countryCode}, #{telephone}, #{email},#{description},
+      sysdate()
+      )
+  </insert>
+
+  <update id="update" parameterType="customizeDO" >
+    update t_customize
+    set 
+      remark = #{remark},
+      flag = #{flag},
+      remark_time = sysdate(),
+      remark_user = #{remarkUser}
+    where id = #{id}
+  </update>
+</mapper>

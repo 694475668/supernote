@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.EquipmentLogMapper">
+    <resultMap id="equipmentLogBase" type="EquipmentLogDO">
+        <id column="id" property="id"></id>
+        <result column="equipment_number" property="equipmentNumber"></result>
+        <result column="log_name" property="logName"></result>
+        <result column="type" property="type"></result>
+        <result column="firmware_version" property="firmwareVersion"></result>
+        <result column="create_time" property="createTime"></result>
+        <result column="remark" property="remark"></result>
+        <result column="is_download" property="isDownload"></result>
+        <result column="flag" property="flag"></result>
+    </resultMap>
+    <!--根据参数查询设备记日志记录-->
+    <select id="query" resultMap="equipmentLogBase">
+        select t.id,t.equipment_number,t.type,t.log_name,t.firmware_version,DATE_FORMAT( t.create_time, '%Y-%m-%d %H:%i:%s') AS create_time,t.remark,t.is_download,t.flag
+        from t_equipment_log t
+        where 1=1
+        <if test="type !=null and type !='' ">
+            and t.type =#{type}
+        </if>
+        <if test="flag !=null and flag !='' ">
+            and t.flag =#{flag}
+        </if>
+        <if test="isDownload !=null and isDownload !='' ">
+            and t.is_download =#{isDownload}
+        </if>
+        <if test="equipmentNumber !=null and equipmentNumber !='' ">
+            and t.equipment_number like concat('%',trim(#{equipmentNumber}),'%')
+        </if>
+        <if test="firmwareVersion !=null and firmwareVersion !='' ">
+            and t.firmware_version like concat('%',trim(#{firmwareVersion}),'%')
+        </if>
+        <if test="startDate !=null and startDate !='' ">
+            and date_format(create_time,'%Y-%m-%d') >= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate !='' ">
+            and date_format(create_time,'%Y-%m-%d') &lt;= #{endDate}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+    <!--根据id查询删除设备日志信息-->
+    <delete id="delEquipmentLog" parameterType="long">
+		delete from t_equipment_log where id=#{id}
+	</delete>
+
+    <!--根据ID查询日志记录-->
+    <select id="queryEquipmentLogById" parameterType="long"
+            resultMap="equipmentLogBase">
+        select t.id,t.equipment_number,t.type,t.log_name,t.firmware_version,t.create_time,t.remark,t.is_download,t.flag
+        from t_equipment_log t where t.id=#{id}
+    </select>
+
+    <!--根据ID更新下载标识、查看标识、备注-->
+    <update id="updateEquipment">
+        UPDATE t_equipment_log
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="equipmentNumber !=null and equipmentNumber !='' ">equipment_number=#{equipmentNumber},</if>
+            <if test="logName !=null and logName !=''">log_name=#{logName},</if>
+            <if test="type !=null and type !=''">type=#{type},</if>
+            <if test="firmwareVersion !=null and firmwareVersion !=''">firmware_version=#{firmwareVersion},</if>
+            <if test="createTime !=null">create_time=#{createTime},</if>
+            <if test="remark !=null">remark=#{remark},</if>
+            <if test="isDownload !=null and isDownload !=''">is_download=#{isDownload},</if>
+            <if test="flag !=null and flag !=''">flag=#{flag},</if>
+        </trim>
+    </update>
+
+    <!--根据ID查询日志记录-->
+    <select id="queryEquipmentLogByParam" resultMap="equipmentLogBase">
+        select t.id,t.equipment_number,t.type,t.log_name,t.firmware_version,t.create_time,t.remark,t.is_download,t.flag
+        from t_equipment_log t where t.id=#{id} and log_name=#{logName}
+    </select>
+
+    <!--添加日志信息 -->
+    <insert id="savaEquipmentLog">
+        insert into t_equipment_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="equipmentNumber != null">
+                equipment_number,
+            </if>
+            <if test="logName != null">
+                log_name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="firmwareVersion != null">
+                firmware_version,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+            <if test="isDownload != null">
+                is_download,
+            </if>
+            <if test="flag != null">
+                flag,
+            </if>
+            create_time
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="equipmentNumber != null">
+                #{equipmentNumber},
+            </if>
+            <if test="logName != null">
+                #{logName},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="firmwareVersion != null">
+                #{firmwareVersion},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="isDownload != null">
+                #{isDownload},
+            </if>
+            <if test="flag != null">
+                #{flag},
+            </if>
+            sysdate()
+        </trim>
+    </insert>
+    <!-- 查询某时间点之前的数据 -->
+    <select id="selectByDays" parameterType="long"
+            resultMap="equipmentLogBase">
+		select t.* from t_equipment_log t where
+		date_format(t.create_time,'%Y-%m-%d') &lt;=DATE_SUB(CURDATE(),INTERVAL
+		#{daysBefore} DAY) and t.type='1'
+		union
+		select t.* from t_equipment_log t where
+		date_format(t.create_time,'%Y-%m-%d') &lt;=DATE_SUB(CURDATE(),INTERVAL
+		#{daysBefore} DAY) and t.type='2' and t.flag='2'
+	</select>
+</mapper>

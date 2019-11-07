@@ -1,0 +1,421 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 10.20.22.30:8848
+        namespace: e86d662e-11b6-4bcf-b1c7-dc3913e913c5 
+    gateway:
+      discovery:
+        locator:
+          #false为服务名不自动匹配，true则相反
+          enabled: false
+          #服务名以小写进行匹配
+          lowerCaseServiceId: true
+      routes:
+        - id: service-1
+          uri: lb://cms-base-service
+          predicates:
+            - Path=/system/cms/base/manage/user/login
+          filters:
+            - Authorize=false
+            - StripPrefix=3
+            
+        - id: service-2
+          uri: lb://system-base-service
+          predicates:
+            - Path=/system/base/sys/user/login
+          filters:
+            - Authorize=false
+            - StripPrefix=2
+
+        - id: service-3
+          uri: lb://system-base-service
+          predicates:
+            - Path=/system/base/param
+          filters:
+            - Authorize=false
+            - StripPrefix=2
+
+        - id: service-4
+          uri: lb://user-service
+          predicates:
+            - Path=/user/account/login
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-5
+          uri: lb://user-service
+          predicates:
+            - Path=/user/sms/login
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-6
+          uri: lb://user-service
+          predicates:
+            - Path=/user/query/token
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-7
+          uri: lb://user-service
+          predicates:
+            - Path=/user/retrieve/password
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-8
+          uri: lb://user-service
+          predicates:
+            - Path=/user/check/exists
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-9
+          uri: lb://user-service
+          predicates:
+            - Path=/user/register
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-10
+          uri: lb://user-service
+          predicates:
+            - Path=/user/check/validcode
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-11
+          uri: lb://user-service
+          predicates:
+            - Path=/user/mail/validcode
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-12
+          uri: lb://user-service
+          predicates:
+            - Path=/user/sms/validcode
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        - id: service-13
+          uri: lb://base-service
+          predicates:
+            - Path=/base/pic/code
+          filters:
+            - Authorize=false
+            - StripPrefix=1
+
+        #用户服务
+        - id: service-14
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+            
+        #文件服务
+        - id: service-15
+          uri: lb://file-service
+          predicates:
+            - Path=/file/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+
+        #设备服务
+        - id: service-16
+          uri: lb://equipment-service
+          predicates:
+            - Path=/equipment/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+
+        #系统基础服务
+        - id: service-17
+          uri: lb://system-base-service
+          predicates:
+            - Path=/system/base/**
+          filters:
+            #进行token校验,值为true则开启认证，false则不开启,Authorize名是跟 过滤器类 前缀进行匹配
+            - Authorize=true
+            #过滤url的/system/base/
+            - StripPrefix=2
+
+        #系统业务服务
+        - id: service-18
+          uri: lb://system-business-service
+          predicates:
+            - Path=/system/business/**
+          filters:
+            - Authorize=true
+            - StripPrefix=2
+
+        #其他服务
+        - id: service-19
+          uri: lb://other-service
+          predicates:
+            - Path=/other/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+
+        #基础组件服务
+        - id: service-20
+          uri: lb://base-service
+          predicates:
+            - Path=/base/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+
+        #对象存储服务
+        - id: service-21
+          uri: lb://oss-service
+          predicates:
+            - Path=/oss/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+
+        #cms组件服务
+        - id: service-22
+          uri: lb://cms-service
+          predicates:
+            - Path=/cms/**
+          filters:
+            - Authorize=true
+            - StripPrefix=1
+        
+        #cms组件服务
+        - id: service-41
+          uri: lb://cms-service
+          predicates:
+            - Path=/official/cms/**
+          filters:
+            - Authorize=false
+            - StripPrefix=2
+
+             #cms组件服务
+        - id: service-42
+          uri: lb://cms-base-service
+          predicates:
+            - Path=/official/base/cms/**
+          filters:
+            - Authorize=false
+            - StripPrefix=3
+
+        - id: service-23
+          uri: lb://cms-base-service
+          predicates:
+            - Path=/system/cms/base/**
+          filters:
+            - Authorize=true
+            - StripPrefix=3
+
+        - id: service-24
+          uri: lb://equipment-service
+          predicates:
+            - Path=/terminal/user/activateEquipment
+          filters:
+            - RewritePath=/terminal/user/activateEquipment, /activate
+            - Authorize=false
+
+    
+        - id: service-25
+          uri: lb://equipment-service
+          predicates:
+            - Path=/terminal/user/bindEquipment
+          filters:
+            - RewritePath=/terminal/user/bindEquipment, /bind
+            - Authorize=false
+        
+        - id: service-26
+          uri: lb://equipment-service
+          predicates:
+            - Path=/terminal/equipment/unlink
+          filters:
+            - RewritePath=/terminal/equipment/unlink, /unbind
+            - Authorize=false
+
+        
+        - id: service-27
+          uri: lb://system-business-service
+          predicates:
+            - Path=/terminal/firmware/updateFirmware
+          filters:
+            - RewritePath=/terminal/firmware/updateFirmware, /firmware/update/download
+            - Authorize=false
+
+        
+        - id: service-28
+          uri: lb://system-business-service
+          predicates:
+            - Path=/terminal/firmware/updateStatus
+          filters:
+            - RewritePath=/terminal/firmware/updateStatus, /firmware/update/finish
+            - Authorize=false
+
+
+        - id: service-29
+          uri: lb://base-service
+          predicates:
+            - Path=/terminal/timezone
+          filters:
+            - RewritePath=/terminal/timezone, /timezone/query
+            - Authorize=false
+
+        - id: service-30
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/file/history
+          filters:
+            - RewritePath=/terminal/file/history, /terminal/synchronous/history
+            - Authorize=true
+
+        - id: service-31
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/synchronous/**
+          filters:
+            - RewritePath=/terminal/synchronous/(?<segment>.*), /terminal/synchronous/$\{segment}
+            - Authorize=true
+
+        - id: service-32
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/finish/synchronous
+          filters:
+            - RewritePath=/terminal/finish/synchronous, /terminal/synchronous/finish
+            - Authorize=true
+        
+        - id: service-33
+          uri: lb://equipment-service
+          predicates:
+            - Path=/terminal/log/upload/**
+          filters:
+            - RewritePath=/terminal/log/upload/(?<segment>.*), /log/upload/$\{segment}
+            - Authorize=false
+
+   
+        - id: service-34
+          uri: lb://system-base-service
+          predicates:
+            - Path=/terminal/param
+          filters:
+            - RewritePath=/terminal/param, /param
+            - Authorize=false
+
+        - id: service-35
+          uri: lb://equipment-service
+          predicates:
+            - Path=/terminal/task/query
+          filters:
+            - RewritePath=/terminal/task/query, /query/task
+            - Authorize=false
+
+ 
+        - id: service-36
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/file/upload/apply
+          filters:
+            - RewritePath=/terminal/file/upload/apply, /terminal/upload/apply
+            - Authorize=true
+
+        - id: service-37
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/file/upload/finish
+          filters:
+            - RewritePath=/terminal/file/upload/finish, /terminal/upload/finish
+            - Authorize=true
+
+        - id: service-38
+          uri: lb://file-service
+          predicates:
+            - Path=/terminal/file/upload
+          filters:
+            - RewritePath=/terminal/file/upload, /terminal/upload
+            - Authorize=true
+
+        - id: service-39
+          uri: lb://user-service
+          predicates:
+            - Path=/terminal/user/login
+          filters:
+            - RewritePath=/terminal/user/login, /account/login
+            - Authorize=false
+
+        - id: service-40
+          uri: lb://user-service
+          predicates:
+            - Path=/terminal/user/query
+          filters:
+            - RewritePath=/terminal/user/query, /query/info
+            - Authorize=true
+
+  #springCloudSleuth
+  zipkin:
+    baseUrl: http://10.20.22.30:9411/
+    enabled: true
+    sender: 
+      type: kafka
+    service: 
+      name: ratta-gateway-service
+#区间是0.1到1， 1代表保存所有的链路， 0.1表示保存10%的链路
+  sleuth:
+    sampler: 
+      probability: 1
+  kafka: 
+    bootstrap-servers: 10.20.22.30:9093
+  redis: 
+    database: 0  
+    host: 10.20.22.30
+    port: 6379
+    password: 
+    timeout: 5000
+redis: 
+  cache: 
+    expires: 1
+service: 
+  url: /**
+web: 
+  url: http://localhost:8080
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+cors:
+  method: '*'
+  header: '*'
+  #origin: '*'
+  origin: 'http://localhost:8204,http://localhost:9528,http://localhost:9529,http://localhost:9888,http://10.20.22.32:8080,http://127.0.0.1:8204,http://10.20.22.32:8204,http://dev-cloud.ratta.com.cn,http://dev-account.ratta.com.cn,http://dev-cloud.ratta.com.cn:9000,http://dev-account.ratta.com.cn:9000,http://10.20.22.32:9000,http://10.20.22.32:9528,http://10.20.22.32:9529,http://10.20.22.32:9531,http://192.168.120.105:8204,http://10.20.22.32:9888,http://192.168.120.7:9528,http://2187mb1668.iask.in,http://10.20.22.32:9530,http://localhost:9530,http://10.20.22.32:9130'
+
+origin:
+  rediskey: 
+    allow: http://localhost:9528,http://localhost:9529,http://10.20.22.32:9528,http://10.20.22.32:9529,http://10.20.22.32:9530,http://localhost:9530,http://10.20.22.32:9130
+
+preview:
+  adrress: http://10.20.22.32:9130
+production:
+  adrress: http://10.20.22.32:9530
+localhost:
+  adrress: http://localhost:9530
+
+  

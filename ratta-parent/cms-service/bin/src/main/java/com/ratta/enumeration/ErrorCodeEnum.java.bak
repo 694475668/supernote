@@ -1,0 +1,32 @@
+package com.ratta.enumeration;
+
+
+/**
+ * @author yll
+ * 错误码
+ */
+public enum ErrorCodeEnum {
+//	E1401("E1401","已有产品banner图处于上线状态，请下线后再上线新的banner图"),
+	E1402("E1402","该序号已经存在，请重新设置序号"),
+	E0730("E0730", "同一个业务码下不允许存在相同编码！"),
+	E0701("E0701", "操作失败!"),
+	E0705("E0705", "修改失败!"),
+	E0702("E0702", "删除失败!"),
+	E1441("E1441","数据不存在");
+    private String key;
+    private String value;
+
+    private ErrorCodeEnum(String key, String value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public String getKey() {
+        return this.key;
+    }
+
+    public String getValue() {
+        return this.value;
+    }
+
+}

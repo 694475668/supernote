@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.ScheduleMapper">
+
+    <sql id="scheduleTaskBase">
+        select id,name,remark,cron,status,create_time as createTime,create_user as createUser,update_time as updateTime,update_user as updateUser,bzcode as bzCode
+        from t_schedule_task
+    </sql>
+    <!-- 查询 -->
+    <select id="query" resultType="ScheduleTaskDO">
+        <include refid="scheduleTaskBase"></include>
+        where 1=1
+        <if test="name !=null and name !=''">
+            and name like CONCAT('%',#{name},'%')
+        </if>
+        <if test="status !=null and status !=''">
+            and status=#{status}
+        </if>
+    </select>
+
+    <!-- 根据id查询调度任务信息 -->
+    <select id="queryById" parameterType="long" resultType="ScheduleTaskDO">
+        <include refid="scheduleTaskBase"></include>
+        where id = #{id}
+    </select>
+
+    <!--修改调度任务信息-->
+    <update id="updateScheduleTask">
+        UPDATE t_schedule_task
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="name !=null ">name=#{name},</if>
+            <if test="remark !=null ">remark=#{remark},</if>
+            <if test="cron !=null ">cron=#{cron},</if>
+            <if test="status !=null ">status=#{status},</if>
+            <if test="createTime !=null ">create_time=sysdate(),</if>
+            <if test="createUser !=null ">create_user=#{createUser},</if>
+            <if test="updateTime !=null ">update_time=sysdate(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+            <if test="bzCode !=null ">bzcode=#{bzCode},</if>
+        </trim>
+    </update>
+
+    <resultMap id="scheduleLogBase" type="ScheduleLogDO">
+        <id column="id" property="id"></id>
+        <result column="ksrq" property="ksrq"></result>
+        <result column="jsrq" property="jsrq"></result>
+        <result column="task_id" property="taskId"></result>
+        <result column="result" property="result"></result>
+    </resultMap>
+    <!--查询日志-->
+    <select id="queryLogByParam" resultMap="scheduleLogBase">
+        SELECT * FROM t_schedule_log WHERE 1=1
+        <if test="taskId !=null and taskId !=''">
+            AND task_id=#{taskId}
+        </if>
+        <if test="ksrq !=null and ksrq !=''">
+            and date_format(ksrq,'%Y-%m-%d')>= #{ksrq}
+        </if>
+        <if test="jsrq !=null and jsrq !=''">
+            and date_format(jsrq,'%Y-%m-%d')&lt;= #{jsrq}
+        </if>
+		order by ksrq desc
+    </select>
+
+    <!--删除日志记录-->
+    <delete id="deleteByDays" parameterType="long">
+        delete from t_schedule_log
+        where
+        date_format(ksrq,'%Y-%m-%d') &lt;=DATE_SUB(CURDATE(),INTERVAL #{daysBefore} DAY)
+    </delete>
+    <!--添加日志-->
+    <insert id="saveLog" parameterType="ScheduleLogDO">
+        insert into
+        t_schedule_log
+        (KSRQ,JSRQ,TASK_ID,RESULT)
+        values
+        (#{ksrq},#{jsrq},#{taskId},#{result})
+    </insert>
+</mapper>

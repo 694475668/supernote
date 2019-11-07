@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.TaskMapper" >
+  <resultMap id="taskDO" type="TaskDO" >
+    <id column="task_id" property="taskId" jdbcType="BIGINT" />
+    <result column="equipment_number" property="equipmentNumber" jdbcType="VARCHAR" />
+    <result column="task_code" property="taskCode" jdbcType="CHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="task_select" >
+    task_id, equipment_number, task_code, create_time
+  </sql>
+  <select id="queryTaskList" resultMap="taskDO" parameterType="hashmap" >
+    select
+    <include refid="task_select" />
+    from t_task where equipment_number = #{equipmentNumber}
+  </select>
+    <select id="queryTask" resultMap="taskDO" parameterType="hashmap" >
+    select
+    <include refid="task_select" />
+    from t_task where equipment_number = #{equipmentNumber} and task_code = #{taskCode}
+  </select>
+  <insert id="insert" parameterType="hashmap" >
+    insert into t_task 
+    	(equipment_number, 
+   		task_code,  
+    	create_time )
+    values 
+    	(#{equipmentNumber}, 
+    	#{taskCode}, 
+      	sysdate() )
+  </insert>
+  <delete id="delete" parameterType="hashmap" >
+    delete from t_task
+    where equipment_number = #{equipmentNumber} and task_code = #{taskCode}
+  </delete>
+</mapper>

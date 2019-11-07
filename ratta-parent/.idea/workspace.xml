@@ -1,0 +1,1490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="93ca1163-1e23-43e7-b02f-ddec792c5f15" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/equipment-service/src/main/java/util/OperateLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/equipment-service/src/main/resources/mapper/EquipmentMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/equipment-service" beforeDir="false" afterPath="$PROJECT_DIR$/equipment-service" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/equipment-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/equipment-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/system-base-service" beforeDir="false" afterPath="$PROJECT_DIR$/system-base-service" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/system-base-service/target/" />
+    <ignored path="$PROJECT_DIR$/equipment-service/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/ratta_parent$SystemBaseServiceApplication.ic" NAME="SystemBaseServiceApplication Coverage Results" MODIFIED="1560496505328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.ratta.*</FILTER>
+    </SUITE>
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="271" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/EquipmentServiceApplication.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>id</find>
+      <find>saveUser</find>
+      <find>user</find>
+      <find>删除</find>
+      <find>dataGrid</find>
+      <find>getUserByName</find>
+      <find>userBase</find>
+      <find>QueryUser</find>
+      <find>QueryUserDO</find>
+      <find>授权</find>
+      <find>根据查询条件获取用户信息接口</find>
+      <find>find</find>
+      <find>userva</find>
+      <find>锁定</find>
+      <find>unlock</find>
+      <find>data</find>
+      <find>roleId</find>
+      <find>queryRoleByRoleName</find>
+      <find>ScheduleLogDO</find>
+      <find>queryLogByParam</find>
+      <find>ScheduleLogBase</find>
+      <find>scheduleLogDTO</find>
+      <find>deleteByDays</find>
+      <find>GetMapping</find>
+      <find>queryByPamram</find>
+      <find>queryByParamCode</find>
+      <find>PostMapping</find>
+      <find>post</find>
+      <find>启用</find>
+      <find>findAll</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>log</replace>
+      <replace>resourceDO</replace>
+      <replace>resourceMapper</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="ROOT_SYNC" value="SYNC" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/equipment-service" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$/equipment-service" value="master" />
+        <entry key="$PROJECT_DIR$/system-base-service" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_COMMON_BRANCH" value="developer" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/RoleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/ScheduleTaskDTO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/ScheduleAddLogDTO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/domain/ScheduleLogDO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/vo/ScheduleLogVO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/ScheduleLogDTO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/resources/mapper/ScheduleMapper.xml" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/enumeration/ErrorCodeEnum.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/ScheduleTaskServiceImpl.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/mapper/DictionaryMapper.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/resources/mapper/DictionaryMapper.xml" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/resources/mapper/ReferenceMapper.xml" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/ReferenceService.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/DictionaryBeanDTO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/ReferenceBeanDTO.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/DictionaryService.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/stream/EquipmentChannel.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/resources/mapper/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/aspect/HttpAspect.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/config/Swagger2Config.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/EquipmentServiceApplication.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/EquipmentLog.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/ReferenceServiceImpl.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/DictionaryServiceImpl.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ResourceController.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/RoleController.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ScheduleTaskController.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/util/OperateLogger.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/DictionaryController.java" />
+        <option value="$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ReferenceController.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/EquipmentLogQueryDO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/vo/EquipmentLogDO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogQueryDO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/EquipmentLogDO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogQueryDTO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/vo/EquipmentLogVO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/util/OperateLogger.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/util/ConfigUtil.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/util/FileUtil.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/enums/ErrorCodeEnum.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/mapper/EquipmentMapper.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/resources/mapper/EquipmentMapper.xml" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/constants/Constant.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/util/UFile.java" />
+        <option value="$PROJECT_DIR$/equipment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogDeleteDTO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogAddRemarkDTO.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/service/EquipmentService.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/service/impl/EquipmentServiceImpl.java" />
+        <option value="$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/controller/EquipmentController.java" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="system-base-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="system-base-service" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Lifecycle" type="58874e2:MavenProjectsStructure$LifecycleNode" />
+        </path>
+      </expand>
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="aspect" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="constants" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="dto" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="enums" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="stream" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="ratta" type="462c0819:PsiDirectoryNode" />
+              <item name="vo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ratta-parent" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ratta-parent" type="462c0819:PsiDirectoryNode" />
+              <item name="equipment-service" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1561599253258" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="show.run.dashboard.notification" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="util" />
+      <recent name="com.ratta.dto" />
+      <recent name="com.ratta.vo" />
+      <recent name="com.ratta.stream" />
+      <recent name="com.ratta.controller" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\ratta\ratta-parent\equipment-service\src\main\resources" />
+      <recent name="E:\ratta\ratta-parent\equipment-service\src\main\java\com\ratta" />
+      <recent name="E:\ratta\ratta-parent\equipment-service\src\main\java\util" />
+      <recent name="E:\ratta\ratta-parent\system-base-service\src\main\java\com\ratta\util" />
+      <recent name="E:\ratta\ratta-parent\equipment-service\src\main\resources\mapper" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.EquipmentServiceApplication">
+    <configuration name="ObjectConvertUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.ratta.util.ObjectConvertUtil" />
+      <module name="system-base-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ratta.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test.testUUid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="system-base-service" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <option name="METHOD_NAME" value="testUUid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EquipmentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="equipment-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ratta.EquipmentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SystemBaseServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="system-base-service" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ratta.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ratta.SystemBaseServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="system-base-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ratta.UserServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.SystemBaseServiceApplication" />
+        <item itemvalue="JUnit.Test.testUUid" />
+        <item itemvalue="Application.ObjectConvertUtil" />
+        <item itemvalue="Spring Boot.SystemBaseServiceApplication" />
+        <item itemvalue="Spring Boot.SystemBaseServiceApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="93ca1163-1e23-43e7-b02f-ddec792c5f15" name="Default Changelist" comment="" />
+      <created>1559724415784</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1559724415784</updated>
+      <workItem from="1559724418242" duration="4155000" />
+      <workItem from="1559729327179" duration="3382000" />
+      <workItem from="1559781837022" duration="26777000" />
+      <workItem from="1560128428993" duration="22232000" />
+      <workItem from="1560157101198" duration="1257000" />
+      <workItem from="1560158399679" duration="1619000" />
+      <workItem from="1560215821572" duration="480000" />
+      <workItem from="1560216586198" duration="340000" />
+      <workItem from="1560217454514" duration="26210000" />
+      <workItem from="1560301312520" duration="672000" />
+      <workItem from="1560302019630" duration="619000" />
+      <workItem from="1560302716450" duration="1344000" />
+      <workItem from="1560304128961" duration="590000" />
+      <workItem from="1560304756175" duration="23454000" />
+      <workItem from="1560387033942" duration="28261000" />
+      <workItem from="1560473279427" duration="7425000" />
+      <workItem from="1560483083225" duration="17302000" />
+      <workItem from="1560504562422" duration="668000" />
+      <workItem from="1560734451999" duration="112000" />
+      <workItem from="1560734593263" duration="19595000" />
+      <workItem from="1560766938773" duration="699000" />
+      <workItem from="1560821530524" duration="21799000" />
+      <workItem from="1560851733263" duration="337000" />
+      <workItem from="1560852375831" duration="1621000" />
+      <workItem from="1560905912025" duration="24725000" />
+      <workItem from="1560990282559" duration="680000" />
+      <workItem from="1560991032107" duration="55898000" />
+      <workItem from="1561338432614" duration="16553000" />
+      <workItem from="1561366291969" duration="47901000" />
+      <workItem from="1561528430390" duration="21518000" />
+    </task>
+    <task id="LOCAL-00003" summary="提交1">
+      <created>1559725182780</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1559725182780</updated>
+    </task>
+    <task id="LOCAL-00004" summary="提交2">
+      <created>1559727302741</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1559727302741</updated>
+    </task>
+    <task id="LOCAL-00005" summary="提交3">
+      <created>1559784197060</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1559784197060</updated>
+    </task>
+    <task id="LOCAL-00006" summary="提交4">
+      <created>1560133263801</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1560133263802</updated>
+    </task>
+    <task id="LOCAL-00007" summary="提交6">
+      <created>1560133738213</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1560133738213</updated>
+    </task>
+    <task id="LOCAL-00008" summary="增加">
+      <created>1560154987529</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1560154987529</updated>
+    </task>
+    <task id="LOCAL-00009" summary="增加">
+      <created>1560155173556</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1560155173556</updated>
+    </task>
+    <task id="LOCAL-00010" summary="1">
+      <created>1560155582984</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1560155582984</updated>
+    </task>
+    <task id="LOCAL-00011" summary="提交">
+      <created>1560155955900</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1560155955900</updated>
+    </task>
+    <task id="LOCAL-00012" summary="s">
+      <created>1560157171006</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1560157171006</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修改">
+      <created>1560157575229</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1560157575229</updated>
+    </task>
+    <task id="LOCAL-00014" summary="添加功能">
+      <created>1560216210090</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1560216210090</updated>
+    </task>
+    <task id="LOCAL-00015" summary="资源添加功能服务接口集合">
+      <created>1560218120607</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1560218120607</updated>
+    </task>
+    <task id="LOCAL-00016" summary="资源服务模糊查询">
+      <created>1560227757132</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1560227757132</updated>
+    </task>
+    <task id="LOCAL-00017" summary="s">
+      <created>1560232674978</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1560232674978</updated>
+    </task>
+    <task id="LOCAL-00018" summary="资源删除接口">
+      <created>1560246064605</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1560246064605</updated>
+    </task>
+    <task id="LOCAL-00019" summary="资源修改接口">
+      <created>1560246857574</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1560246857574</updated>
+    </task>
+    <task id="LOCAL-00020" summary="资源修改接口">
+      <created>1560300806313</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1560300806313</updated>
+    </task>
+    <task id="LOCAL-00021" summary="修改资源">
+      <created>1560307094573</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1560307094574</updated>
+    </task>
+    <task id="LOCAL-00022" summary="修改资源">
+      <created>1560307856468</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1560307856468</updated>
+    </task>
+    <task id="LOCAL-00023" summary="通过ID查询">
+      <created>1560474533558</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1560474533558</updated>
+    </task>
+    <task id="LOCAL-00024" summary="角色添加接口和删除接口">
+      <created>1560504629209</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1560504629209</updated>
+    </task>
+    <task id="LOCAL-00025" summary="角色修改接口">
+      <created>1560734722517</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1560734722517</updated>
+    </task>
+    <task id="LOCAL-00026" summary="授权修改接口">
+      <created>1560742680332</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1560742680332</updated>
+    </task>
+    <task id="LOCAL-00027" summary="用户登陆接口">
+      <created>1560753203332</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1560753203332</updated>
+    </task>
+    <task id="LOCAL-00028" summary="密码修改接口">
+      <created>1560828085191</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1560828085191</updated>
+    </task>
+    <task id="LOCAL-00029" summary="密码修改接口">
+      <created>1560829567348</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1560829567348</updated>
+    </task>
+    <task id="LOCAL-00030" summary="密码修改接口">
+      <created>1560829941401</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1560829941401</updated>
+    </task>
+    <task id="LOCAL-00031" summary="密码修改接口">
+      <created>1560836660304</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1560836660304</updated>
+    </task>
+    <task id="LOCAL-00032" summary="密码修改接口">
+      <created>1560911559057</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1560911559057</updated>
+    </task>
+    <task id="LOCAL-00033" summary="用户查询接口">
+      <created>1560990881846</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1560990881847</updated>
+    </task>
+    <task id="LOCAL-00034" summary="用户查询接口">
+      <created>1560991051478</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1560991051478</updated>
+    </task>
+    <task id="LOCAL-00035" summary="用户查询接口">
+      <created>1560991327761</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1560991327761</updated>
+    </task>
+    <task id="LOCAL-00036" summary="用户查询接口">
+      <created>1560991455638</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1560991455638</updated>
+    </task>
+    <task id="LOCAL-00037" summary="用户查询接口">
+      <created>1560991501877</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1560991501877</updated>
+    </task>
+    <task id="LOCAL-00038" summary="刷新接口">
+      <created>1560996655759</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1560996655759</updated>
+    </task>
+    <task id="LOCAL-00039" summary="添加用户及角色接口">
+      <created>1560998565944</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1560998565944</updated>
+    </task>
+    <task id="LOCAL-00040" summary="添加用户及角色接口">
+      <created>1561009768648</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1561009768648</updated>
+    </task>
+    <task id="LOCAL-00041" summary="批量启用接口">
+      <created>1561013329633</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1561013329633</updated>
+    </task>
+    <task id="LOCAL-00042" summary="批量停用接口">
+      <created>1561014337226</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1561014337226</updated>
+    </task>
+    <task id="LOCAL-00043" summary="修改密码接口，删除用户信息接口，批量授权接口，解锁接口，">
+      <created>1561024406959</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1561024406959</updated>
+    </task>
+    <task id="LOCAL-00044" summary="任务调度查询接口">
+      <created>1561083124152</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1561083124152</updated>
+    </task>
+    <task id="LOCAL-00045" summary="任务调度停用，启用任务接口">
+      <created>1561103578046</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1561103578046</updated>
+    </task>
+    <task id="LOCAL-00046" summary="参数模块所有接口，任务调度模块所有接口，数据字典模块所有接口">
+      <created>1561339868308</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1561339868308</updated>
+    </task>
+    <task id="LOCAL-00047" summary="one">
+      <created>1561532532909</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1561532532909</updated>
+    </task>
+    <task id="LOCAL-00048" summary="one">
+      <created>1561532598293</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1561532598293</updated>
+    </task>
+    <task id="LOCAL-00049" summary="one">
+      <created>1561533134106</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1561533134106</updated>
+    </task>
+    <task id="LOCAL-00050" summary="one">
+      <created>1561536109469</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1561536109470</updated>
+    </task>
+    <task id="LOCAL-00051" summary="固件日志所有接口">
+      <created>1561597640775</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1561597640775</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="Test_testUUid - 2019.06.11 at 09h 54m 02s.xml">
+      <configuration name="Test.testUUid" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_testUUid - 2019.06.12 at 16h 50m 51s.xml">
+      <configuration name="Test.testUUid" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_testUUid - 2019.06.12 at 16h 51m 18s.xml">
+      <configuration name="Test.testUUid" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_testUUid - 2019.06.12 at 17h 00m 21s.xml">
+      <configuration name="Test.testUUid" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="Test_testUUid - 2019.06.19 at 08h 36m 21s.xml">
+      <configuration name="Test.testUUid" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="378225000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.23720682" />
+      <window_info id="Structure" order="1" sideWeight="0.5017544" side_tool="true" weight="0.1945629" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info id="设计师" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32962137" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4989339" visible="true" weight="0.34855235" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989339" weight="0.30178174" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010661" side_tool="true" weight="0.389755" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32962137" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.27060133" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.35634744" />
+      <window_info anchor="bottom" id="消息" order="15" />
+      <window_info anchor="bottom" id="MyBatis Sql Log" order="16" weight="0.32962137" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.17377399" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info anchor="right" id="控制板" order="10" />
+      <window_info anchor="right" id="Coverage" order="11" side_tool="true" weight="0.32995737" />
+    </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49824563" visible="true" weight="0.17217484" />
+      <window_info id="Structure" order="1" sideWeight="0.5017544" side_tool="true" weight="0.1945629" />
+      <window_info id="Designer" order="2" />
+      <window_info id="Image Layers" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI Designer" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" side_tool="true" />
+      <window_info id="设计师" order="8" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32962137" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.3830735" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4989339" weight="0.32405347" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Spring" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5010661" side_tool="true" weight="0.389755" />
+      <window_info anchor="bottom" id="Java Enterprise" order="11" weight="0.32962137" />
+      <window_info anchor="bottom" id="Database Changes" order="12" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.27060133" />
+      <window_info anchor="bottom" id="Messages" order="14" weight="0.35634744" />
+      <window_info anchor="bottom" id="消息" order="15" />
+      <window_info anchor="bottom" id="MyBatis Sql Log" order="16" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="3" weight="0.17377399" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Capture Analysis" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Bean Validation" order="9" />
+      <window_info anchor="right" id="控制板" order="10" />
+      <window_info anchor="right" id="Coverage" order="11" side_tool="true" weight="0.32995737" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="资源服务模糊查询" />
+    <MESSAGE value="s" />
+    <MESSAGE value="资源删除接口" />
+    <MESSAGE value="资源修改" />
+    <MESSAGE value="资源修改接口" />
+    <MESSAGE value="资源" />
+    <MESSAGE value="新的" />
+    <MESSAGE value="修改资源" />
+    <MESSAGE value="通过ID查询" />
+    <MESSAGE value="角色添加接口和删除接口" />
+    <MESSAGE value="角色修改接口" />
+    <MESSAGE value="授权修改接口" />
+    <MESSAGE value="用户登陆接口" />
+    <MESSAGE value="密码修改接口" />
+    <MESSAGE value="用户查询接口" />
+    <MESSAGE value="刷新接口" />
+    <MESSAGE value="添加用户及角色接口" />
+    <MESSAGE value="批量启用接口" />
+    <MESSAGE value="批量停用接口" />
+    <MESSAGE value="修改密码接口，删除用户信息接口，批量授权接口，解锁接口，" />
+    <MESSAGE value="任务调度查询接口" />
+    <MESSAGE value="任务调度停用，启用任务接口" />
+    <MESSAGE value="参数模块所有接口，任务调度模块所有接口，数据字典模块所有接口" />
+    <MESSAGE value="one" />
+    <MESSAGE value="固件日志所有接口" />
+    <option name="LAST_COMMIT_MESSAGE" value="固件日志所有接口" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/RoleServiceImpl.java</url>
+          <line>67</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/aspect/HttpAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="33" column="50" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/config/Swagger2Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="587">
+          <caret line="46" column="91" selection-start-line="46" selection-start-column="78" selection-end-line="46" selection-end-column="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/config/Swagger2Config.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="37" column="75" selection-start-line="37" selection-start-column="75" selection-end-line="37" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/mapper/TestMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="13" column="17" selection-start-line="13" selection-start-column="17" selection-end-line="13" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/controller/TestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-561">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/TestDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/ReferenceServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2838">
+          <caret line="119" column="49" selection-start-line="119" selection-start-column="49" selection-end-line="119" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ResourceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="881">
+          <caret line="77" column="45" selection-start-line="77" selection-start-column="45" selection-end-line="77" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/RoleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="26" column="34" lean-forward="true" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
+          <folding>
+            <element signature="e#4944#4945#0" expanded="true" />
+            <element signature="e#4992#4993#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ScheduleTaskController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="107" column="7" lean-forward="true" selection-start-line="107" selection-start-column="7" selection-end-line="107" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/util/OperateLogger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="815">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="132" column="14" selection-start-line="132" selection-start-column="14" selection-end-line="132" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/mapper/DictionaryMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1796">
+          <caret line="93" column="24" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/mapper/ReferenceMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="53" column="6" lean-forward="true" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/mapper/ResourceMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="17" column="17" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/domain/QueryUserDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="554">
+          <caret line="53" column="27" selection-start-line="45" selection-start-column="1" selection-end-line="53" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/stream/SystemBaseChannel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-287">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/CommonIdDTO.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/service/impl/DictionaryServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="641">
+          <caret line="114" column="28" lean-forward="true" selection-start-line="93" selection-start-column="7" selection-end-line="114" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/DictionaryController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="57" column="29" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/controller/ReferenceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="443">
+          <caret line="133" column="7" lean-forward="true" selection-start-line="133" selection-start-column="7" selection-end-line="133" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/EquipmentLogQueryDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="63" column="28" selection-start-line="63" selection-start-column="19" selection-end-line="63" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/domain/EquipmentLogDO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-892">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/PageDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="40" column="13" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/dto/ReferenceBeanDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="47" column="35" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/src/main/java/com/ratta/vo/commonListVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="93">
+          <caret line="41" selection-start-line="41" selection-end-line="42" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/vo/commonListVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/vo/BaseVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="159">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/util/OperateLogger.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-198" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/util/FileUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-10253">
+          <caret line="4" column="20" lean-forward="true" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/mapper/EquipmentMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="65" column="40" selection-start-line="65" selection-start-column="19" selection-end-line="65" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/constants/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="472">
+          <caret line="98" column="35" selection-start-line="98" selection-start-column="31" selection-end-line="98" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/enums/ErrorCodeEnum.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/system-base-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$MAVEN_REPOSITORY$/cn/ucloud/ufile/1.0/ufile-1.0.pom">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="61" column="25" lean-forward="true" selection-start-line="61" selection-start-column="25" selection-end-line="61" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/util/UFile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/util/ConfigUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1386">
+          <caret line="47" column="13" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/PageDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-462">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/aspect/HttpAspect.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/resources/mapper/EquipmentMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1003">
+          <caret line="49" column="41" lean-forward="true" selection-start-line="49" selection-start-column="41" selection-end-line="49" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18">
+          <caret line="41" column="13" selection-start-line="41" selection-start-column="13" selection-end-line="41" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogQueryDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="43" column="7" lean-forward="true" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogDeleteDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="39" column="34" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/dto/EquipmentLogAddRemarkDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="52" column="31" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/vo/EquipmentLogVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1221">
+          <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/resources/bootstrap.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="5" column="57" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/service/EquipmentService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="96" column="7" lean-forward="true" selection-start-line="91" selection-start-column="2" selection-end-line="96" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/service/impl/EquipmentServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2398">
+          <caret line="224" column="50" lean-forward="true" selection-start-line="224" selection-start-column="3" selection-end-line="224" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/controller/EquipmentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="131" column="7" lean-forward="true" selection-start-line="131" selection-start-column="7" selection-end-line="131" selection-end-column="7" />
+          <folding>
+            <element signature="e#4902#4903#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/equipment-service/src/main/java/com/ratta/EquipmentServiceApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Spring</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>system-base-service</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: ch.qos.logback:logback-classic:1.2.3</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

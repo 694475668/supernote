@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.ProductBannerMapper" >
+  <resultMap id="productBannerDO" type="ProductBannerDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url_pc" property="urlPc" jdbcType="VARCHAR" />
+    <result column="url_mobile" property="urlMobile" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="title_cn" property="titleCn" jdbcType="VARCHAR" />
+    <result column="title_en" property="titleEn" jdbcType="VARCHAR" />
+    <result column="description_cn" property="descriptionCn" jdbcType="VARCHAR" />
+    <result column="description_en" property="descriptionEn" jdbcType="VARCHAR" />
+    <result column="button_flag" property="buttonFlag" jdbcType="CHAR" />
+    <result column="button_name_cn" property="buttonNameCn" jdbcType="VARCHAR" />
+    <result column="button_name_en" property="buttonNameEn" jdbcType="VARCHAR" />
+    <result column="button_link" property="buttonLink" jdbcType="VARCHAR" />
+    <result column="line" property="line" jdbcType="CHAR" />
+    <result column="seo_keyword_cn" property="seoKeywordCn" jdbcType="VARCHAR" />
+    <result column="seo_keyword_en" property="seoKeywordEn" jdbcType="VARCHAR" />
+    <result column="seo_description_cn" property="seoDescriptionCn" jdbcType="VARCHAR" />
+    <result column="seo_description_en" property="seoDescriptionEn" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="select_product_list" >
+    id, url_pc, url_mobile, type, title_cn, title_en, description_cn, description_en, button_flag, 
+    button_name_cn, button_name_en, button_link, line, seo_keyword_cn, seo_keyword_en, seo_description_cn, 
+    seo_description_en, create_time, create_user, update_time, update_user
+  </sql>
+  
+  <select id="selectProductBanner" resultMap="productBannerDO" parameterType="hashmap" >
+    select 
+    <include refid="select_product_list" />
+    from t_product_banner
+    where 1=1 
+    	<if test="id != null and id !='' " >
+        	and id = #{id}
+      	</if>
+      	<if test="type != null and type !='' " >
+        	and type = #{type}
+      	</if>
+      	<if test="line != null and line !='' " >
+        	and line = #{line}
+      	</if>
+  </select>
+  
+  <select id="query" resultMap="productBannerDO">
+		select
+		<include refid="select_product_list" />
+		from t_product_banner
+	</select>
+	
+  <insert id="insert" parameterType="productBannerDO" >
+    insert into t_product_banner (url_pc, url_mobile, 
+      type, title_cn, title_en, 
+      description_cn, description_en, button_flag, 
+      button_name_cn, button_name_en, button_link, 
+      line, seo_keyword_cn, seo_keyword_en, seo_description_cn, 
+      seo_description_en, create_time, create_user, update_time, 
+      update_user)
+    values (#{urlPc}, #{urlMobile}, 
+      #{type}, #{titleCn}, #{titleEn}, 
+      #{descriptionCn}, #{descriptionEn}, #{buttonFlag}, 
+      #{buttonNameCn}, #{buttonNameEn}, #{buttonLink}, 
+      '1', #{seoKeywordCn}, #{seoKeywordEn}, #{seoDescriptionCn}, 
+      #{seoDescriptionEn}, sysdate(), #{createUser}, sysdate(), 
+      #{updateUser})
+  </insert>
+  
+  <update id="updateById" parameterType="productBannerDO" >
+    update t_product_banner
+    set url_pc = #{urlPc},
+      url_mobile = #{urlMobile},
+      type = #{type},
+      title_cn = #{titleCn},
+      title_en = #{titleEn},
+      description_cn = #{descriptionCn},
+      description_en = #{descriptionEn},
+      button_flag = #{buttonFlag},
+      button_name_cn = #{buttonNameCn},
+      button_name_en = #{buttonNameEn},
+      button_link = #{buttonLink},
+      seo_keyword_cn = #{seoKeywordCn},
+      seo_keyword_en = #{seoKeywordEn},
+      seo_description_cn = #{seoDescriptionCn},
+      seo_description_en = #{seoDescriptionEn},
+      update_time = sysdate(),
+      update_user = #{updateUser}
+    where id = #{id}
+  </update>
+  
+  <update id="updateLine" parameterType="hashmap" >
+    update t_product_banner
+    set line = #{line},
+      update_time = sysdate(),
+      update_user = #{userName}
+    where id = #{id}
+  </update>
+  
+  <update id="updateOffline" parameterType="hashmap" >
+    update t_product_banner
+    set line = '1'
+    where type = #{type}
+  </update>
+  
+  <delete id="deleteById" parameterType="hashmap" >
+    delete from t_product_banner
+    where id = #{id}
+  </delete>
+</mapper>

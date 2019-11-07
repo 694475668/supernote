@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.AboutMapper" >
+  <resultMap id="aboutDO" type="AboutDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title_cn" property="titleCn" jdbcType="VARCHAR" />
+    <result column="title_en" property="titleEn" jdbcType="VARCHAR" />
+    <result column="description_pc_cn" property="descriptionPcCn" jdbcType="LONGVARCHAR" />
+    <result column="description_pc_en" property="descriptionPcEn" jdbcType="LONGVARCHAR" />
+    <result column="description_mobile_cn" property="descriptionMobileCn" jdbcType="LONGVARCHAR" />
+    <result column="description_mobile_en" property="descriptionMobileEn" jdbcType="LONGVARCHAR" />
+    <result column="line" property="line" jdbcType="CHAR" />
+    <result column="seq" property="seq" jdbcType="INTEGER" />
+    <result column="seo_keyword_cn" property="seoKeywordCn" jdbcType="VARCHAR" />
+    <result column="seo_keyword_en" property="seoKeywordEn" jdbcType="VARCHAR" />
+    <result column="seo_description_cn" property="seoDescriptionCn" jdbcType="VARCHAR" />
+    <result column="seo_description_en" property="seoDescriptionEn" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="select_about_List" >
+    id, title_cn, title_en, description_pc_cn, description_pc_en, description_mobile_cn,
+    description_mobile_en, line, seq, seo_keyword_cn, seo_keyword_en, seo_description_cn, 
+    seo_description_en, create_time, create_user, update_time, update_user
+  </sql>
+
+  <select id="select" resultMap="aboutDO" parameterType="hashmap" >
+    select 
+    <include refid="select_about_List" />
+    from t_about
+        where 1=1 
+    	<if test="id != null and id !='' " >
+        	and id = #{id}
+      	</if>
+      	<if test="line != null and line !='' " >
+        	and line = #{line}
+      	</if>
+      	<if test="seq != null and seq !='' " >
+        	and seq = #{seq}
+      	</if>
+  </select>
+  
+  <select id="selectList" resultMap="aboutDO" >
+    select 
+    <include refid="select_about_List" />
+    from t_about
+    where line = '0' order by seq asc 
+  </select>
+
+  <insert id="insert" parameterType="aboutDO" >
+    insert into t_about (title_cn, title_en, 
+      line, seq, seo_keyword_cn, 
+      seo_keyword_en, seo_description_cn, seo_description_en, 
+      create_time, create_user, update_time, 
+      update_user, description_pc_cn, description_pc_en, 
+      description_mobile_cn, description_mobile_en
+      )
+    values ( #{titleCn}, #{titleEn}, 
+      '1', #{seq}, #{seoKeywordCn}, 
+      #{seoKeywordEn}, #{seoDescriptionCn}, #{seoDescriptionEn}, 
+      sysdate(), #{createUser}, sysdate(), 
+      #{updateUser}, #{descriptionPcCn,jdbcType=LONGVARCHAR}, #{descriptionPcEn,jdbcType=LONGVARCHAR}, 
+      #{descriptionMobileCn,jdbcType=LONGVARCHAR}, #{descriptionMobileEn,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+
+  <update id="update" parameterType="aboutDO" >
+    update t_about
+    set title_cn = #{titleCn},
+      title_en = #{titleEn},
+      description_pc_cn = #{descriptionPcCn,jdbcType=LONGVARCHAR},
+      description_pc_en = #{descriptionPcEn,jdbcType=LONGVARCHAR},
+      description_mobile_cn = #{descriptionMobileCn,jdbcType=LONGVARCHAR},
+      description_mobile_en = #{descriptionMobileEn,jdbcType=LONGVARCHAR},
+      seo_keyword_cn = #{seoKeywordCn},
+      seo_keyword_en = #{seoKeywordEn},
+      seo_description_cn = #{seoDescriptionCn},
+      seo_description_en = #{seoDescriptionEn},
+      update_time = sysdate(),
+      update_user = #{updateUser}
+    where id = #{id}
+  </update>
+  
+  <update id="updateLine" parameterType="hashmap" >
+    update t_about
+    set line = #{line},
+      update_time = sysdate(),
+      update_user = #{userName}
+    where id = #{id}
+  </update>
+  
+  	<!-- 修改序号-->
+	<update id="updateSeq" parameterType="aboutDO">
+		update t_about set 
+		seq = #{seq},
+		update_time = sysdate(),
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改所有序号-->
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_about set 
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;= #{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt; #{oldSeq}
+		</if>
+	</update>
+	
+	<delete id="deleteById" parameterType="hashmap" >
+	    delete from t_about
+	    where id = #{id}
+	</delete>
+	
+	<!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string" resultType="Integer">
+		select max(seq) from t_about
+	</select>
+	
+	<!-- 重新排列序号-->
+	<update id="updateReSeq" parameterType="hashmap">
+		update t_about set 
+		seq = seq+1 where seq &gt; #{seq} -1
+	</update>
+</mapper>

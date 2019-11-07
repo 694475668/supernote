@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.HomeAwardMapper">
+
+    <resultMap id="sqlSelectBase" type="HomeAwardDO">
+        <id property="id" column="id"></id>
+        <result property="seq" column="seq"></result>
+        <result property="urlMobileCn" column="url_mobile_cn"></result>
+        <result property="urlPcCn" column="url_pc_cn"></result>
+        <result property="urlMobileEn" column="url_mobile_en"></result>
+        <result property="urlPcEn" column="url_pc_en"></result>
+        <result property="nameCn" column="name_cn"></result>
+        <result property="nameEn" column="name_en"></result>
+        <result property="descriptionCn" column="description_cn"></result>
+        <result property="descriptionEn" column="description_en"></result>
+        <result property="mechanismCn" column="mechanism_cn"></result>
+        <result property="mechanismEn" column="mechanism_en"></result>
+        <result property="line" column="line"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+    </resultMap>
+
+    <!-- 查询所有轮播图 -->
+    <select id="listHomeAward" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language=='ZH-CN'">
+                SELECT
+                id,seq,url_pc_cn,url_mobile_cn,name_cn,description_cn,line,mechanism_cn,create_time,create_user,update_time,update_user
+                FROM (SELECT * from t_home_award where seq in (SELECT seq FROM t_home_award GROUP BY seq HAVING
+                count(seq) > 1 ) and line =#{webLine}
+                union
+                SELECT * FROM t_home_award where line != '2' GROUP BY seq HAVING count(seq) = 1
+                <if test='webLine=="0"'>
+                    and line='0'
+                </if>
+                ) h ORDER BY seq
+            </when>
+            <when test="language=='EN'">
+                SELECT
+                id,seq,url_pc_en,url_mobile_en,name_en,description_en,line,mechanism_en,create_time,create_user,update_time,update_user
+                FROM (SELECT * from t_home_award where seq in (SELECT seq FROM t_home_award GROUP BY seq HAVING
+                count(seq) > 1 ) and line =#{webLine}
+                union all
+                SELECT * FROM t_home_award where line != '2' GROUP BY seq HAVING count(seq) = 1
+                <if test='webLine=="0"'>
+                    and line='0'
+                </if>
+                ) h ORDER BY seq
+            </when>
+            <otherwise>
+                select * from t_home_award where 1=1
+                <if test="line!=null and line!=''">
+                    and line=#{line}
+                </if>
+                order by line,seq asc
+            </otherwise>
+        </choose>
+    </select>
+    <!--根据id查询轮播图信息 -->
+    <select id="getHomeAwardById" resultMap="sqlSelectBase">
+		select * from
+		t_home_award where id=#{id}
+	</select>
+
+    <!--根据条件查询轮播图信息 -->
+    <select id="queryBySeqAndLine" resultMap="sqlSelectBase"
+            parameterType="hashmap">
+		select * from
+		t_home_award where seq=#{seq} and
+		line=#{line}
+	</select>
+
+    <!--查询所有记录 -->
+    <select id="query" resultMap="sqlSelectBase">
+		select * from t_home_award
+	</select>
+
+    <!-- 添加轮播图 -->
+    <insert id="insertHomeAward">
+		insert into
+		t_home_award(seq,url_mobile_cn,url_pc_cn,url_mobile_en,url_pc_en,name_cn,name_en,description_cn,description_en,mechanism_cn,mechanism_en,line,create_time,create_user,update_time,update_user)
+		values
+		(#{seq},#{urlMobileCn},#{urlPcCn},#{urlMobileEn},#{urlPcEn},#{nameCn},#{nameEn},#{descriptionCn}
+		,#{descriptionEn},#{mechanismCn},#{mechanismEn},#{line},now(),#{createUser},now(),#{updateUser})
+	</insert>
+
+    <!-- 修改轮播图 -->
+    <update id="updateHomeAward">
+        UPDATE t_home_award
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="seq !=null ">seq=#{seq},</if>
+            <if test="urlMobileCn !=null ">url_mobile_cn=#{urlMobileCn},</if>
+            <if test="urlPcCn !=null ">url_pc_cn=#{urlPcCn},</if>
+            <if test="urlMobileEn !=null ">url_mobile_en=#{urlMobileEn},</if>
+            <if test="urlPcEn !=null ">url_pc_en=#{urlPcEn},</if>
+            <if test="nameCn !=null ">name_cn=#{nameCn},</if>
+            <if test="nameEn !=null ">name_en=#{nameEn},</if>
+            <if test="descriptionCn !=null ">description_cn=#{descriptionCn},</if>
+            <if test="descriptionEn !=null ">description_en=#{descriptionEn},</if>
+            <if test="mechanismCn !=null ">mechanism_cn=#{mechanismCn},</if>
+            <if test="mechanismEn !=null ">mechanism_en=#{mechanismEn},</if>
+            <if test="line !=null ">line=#{line},</if>
+            <if test="updateTime !=null ">update_time=now(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+        </trim>
+    </update>
+
+    <!-- 删除轮播图 -->
+    <delete id="delHomeAward">
+		delete from t_home_award where id=#{id}
+	</delete>
+
+    <!-- 判断序号是否存在 -->
+    <select id="seqIsExist" resultMap="sqlSelectBase">
+		select * from t_home_award
+		where seq=#{seq}
+	</select>
+
+    <!-- 修改所有轮播图 -->
+    <update id="updateAllSeq" parameterType="hashmap">
+        update t_home_award set
+        <if test="oldSeq lt newSeq">
+            seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+            #{newSeq}
+        </if>
+        <if test="oldSeq gt newSeq">
+            seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+            #{oldSeq}
+        </if>
+        and line = #{line}
+    </update>
+
+    <!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string"
+            resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end from t_home_award
+	</select>
+
+</mapper>

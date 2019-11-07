@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.RoleMapper">
+    <resultMap id="SqlRoleBase" type="RoleDO">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="remark" property="remark"></result>
+        <result column="modify_time" property="modifyTime"></result>
+    </resultMap>
+
+    <resultMap id="roleIdResule" type="java.lang.String">
+        <result column="trole_id" property="userId"></result>
+    </resultMap>
+
+    <!--通过用户Id查询所属角色的ID-->
+    <select id="queryRoleIdByUserId" parameterType="String" resultMap="roleIdResule">
+        SELECT trole_id
+        FROM t_user_trole
+        WHERE tuser_id=(
+        SELECT id FROM t_user WHERE id=#{userId});
+    </select>
+
+    <!--添加资源角色关系-->
+    <insert id="addResourceRole" parameterType="String">
+                INSERT INTO t_role_tresource VALUES(#{id},#{resourceDO.id});
+    </insert>
+
+    <!--删除资源角色关系-->
+    <delete id="delRoleResource">
+        DELETE FROM t_role_tresource WHERE tresource_id=#{resourceId};
+    </delete>
+
+    <delete id="delRoleResourceByRoleId">
+        DELETE FROM t_role_tresource WHERE trole_id=#{roleId};
+    </delete>
+
+
+    <!--根据角色ID查询所属权限的资源-->
+    <select id="queryResourceByRoleId" parameterType="String" resultType="ResourceDO">
+          SELECT id,NAME,pid
+          FROM t_resource r
+	      INNER JOIN
+	      (SELECT tresource_id FROM t_role_tresource WHERE trole_id = #{roleId} ) s
+	      ON s.tresource_id = r.id
+    </select>
+
+    <!--根据角色ID查询所属权限的资源-->
+    <select id="queryResourceById" parameterType="String" resultType="ResourceDO">
+          SELECT id,NAME,pid
+          FROM t_resource r
+	      INNER JOIN
+	      (SELECT tresource_id FROM t_role_tresource WHERE trole_id = #{roleId} ) s
+	      ON s.tresource_id = r.id WHERE r.pid  IS NOT NULL
+    </select>
+
+    <!--添加角色-->
+    <insert id="addRole">
+        INSERT INTO t_role(id,name,remark,pid,create_time,modify_time,create_user,modify_user)
+        VALUES (#{id},#{name},#{remark},#{pid},sysdate(),sysdate(),#{createUser},#{modifyUser});
+    </insert>
+
+    <!--根据角色ID查询角色信息-->
+    <select id="queryRoleById" resultMap="SqlRoleBase">
+        SELECT id,name,remark,modify_time FROM t_role WHERE id=#{roleId};
+    </select>
+
+    <!--根据角色ID查询角色信息-->
+    <select id="queryRoleByPid" resultMap="SqlRoleBase">
+        SELECT id,name,remark,modify_time FROM t_role WHERE pid=#{pid};
+    </select>
+
+    <!--修改角色信息-->
+    <update id="updateRole">
+        UPDATE t_role
+        SET name=#{name},remark=#{remark},modify_time=sysdate(),modify_user=#{modifyUser}
+        WHERE id=#{id}
+    </update>
+
+    <!-- 查询该角色下是否有用户 -->
+    <select id="hasUser" resultType="long">
+        select count(1) from t_user_trole t where t.trole_id = #{id}
+    </select>
+    <!--删除角色信息-->
+    <delete id="delRole" parameterType="String">
+       delete from t_role where id=#{id}
+    </delete>
+
+    <select id="queryRoleResource" resultType="java.lang.String">
+        select tresource_id FROM t_role_tresource WHERE trole_id=#{roleId} AND tresource_id NOT IN
+        <foreach collection="resourceList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <delete id="deleteRoleResource">
+        delete from t_role_tresource where trole_id=#{roleId} AND tresource_id in
+        <foreach collection="resourceList" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

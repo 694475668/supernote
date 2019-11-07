@@ -1,0 +1,48 @@
+server:
+  port: 9595
+ 
+
+spring:
+    redis:
+        database: 0
+        host: 10.20.22.30
+        port: 6379
+    swagger:
+        base-package: com.ratta.controller
+    datasource:
+        #数据源数据库地址
+        test1:
+            driver-class-name: com.mysql.jdbc.Driver
+            jdbc-url: jdbc:mysql://10.1.33.84:3306/enotedb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123
+        #系统目标数据库地址
+        test2:
+            driver-class-name: org.mariadb.jdbc.Driver
+            jdbc-url: jdbc:mariadb://10.20.22.11:3306/systembasedb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123
+        #系统目标数据库地址
+        test3:
+            driver-class-name: org.mariadb.jdbc.Driver
+            jdbc-url: jdbc:mariadb://10.20.22.11:3306/equipmentdb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123
+         #系统目标数据库地址
+        test4:
+            driver-class-name: org.mariadb.jdbc.Driver
+            jdbc-url: jdbc:mariadb://10.20.22.11:3306/userdb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123
+         #系统目标数据库地址
+        test5:
+            driver-class-name: org.mariadb.jdbc.Driver
+            jdbc-url: jdbc:mariadb://10.20.22.11:3306/systembusinessdb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123
+                 #系统目标数据库地址
+        test6:
+            driver-class-name: org.mariadb.jdbc.Driver
+            jdbc-url: jdbc:mariadb://10.20.22.11:3306/filedb?useUnicode=true&characterEncoding=utf-8
+            username: enote
+            password: 123

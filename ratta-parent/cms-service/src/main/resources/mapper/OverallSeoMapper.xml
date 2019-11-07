@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.OverallSeoMapper">
+	<resultMap id="overallSeo" type="OverallSeoDO">
+		<id column="id" property="id" />
+		<result column="page_serial" property="pageSerial" />
+		<result column="seo_title_cn" property="seoTitleCn" />
+		<result column="seo_title_en" property="seoTitleEn" />
+		<result column="seo_keyword_cn" property="seoKeywordCn" />
+		<result column="seo_keyword_en" property="seoKeywordEn" />
+		<result column="seo_description_cn" property="seoDescriptionCn" />
+		<result column="seo_description_en" property="seoDescriptionEn" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		select id,page_serial,seo_title_cn,seo_title_en,seo_keyword_cn, seo_keyword_en,seo_description_cn,seo_description_en,
+		create_time,create_user,update_time,update_user
+	</sql>
+
+    <!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="pageSerial != null and pageSerial !='' ">
+			and page_serial = #{pageSerial}
+		</if>
+	</sql>
+    <!-- 查询所有整体SEO列表信息 -->
+	<select id="queryAll" resultMap="overallSeo" parameterType="OverallSeoDO">
+		<include refid="Base_Column_List" />
+		from t_overall_seo 
+		where 1=1 
+		<include refid="select_param" />
+	</select>
+	
+	<!-- 新增整体SEO信息 -->
+	<insert id="save" parameterType="OverallSeoDO">
+		insert into t_overall_seo (
+		page_serial,
+		seo_title_cn,
+		seo_title_en,
+		seo_keyword_cn, 
+		seo_keyword_en,
+		seo_description_cn,
+		seo_description_en,
+		create_time,
+		create_user,
+		update_time,
+		update_user)
+		values (
+		#{pageSerial},
+		#{seoTitleCn},
+		#{seoTitleEn},
+		#{seoKeywordCn},
+		#{seoKeywordEn}, 
+		#{seoDescriptionCn}, 
+		#{seoDescriptionEn}, 
+		#{createTime}, 
+		#{createUser}, 
+		#{updateTime}, 
+		#{updateUser})
+	</insert>
+	
+	<!-- 修改整体SEO信息 -->
+	<update id="update" parameterType="OverallSeoDO">
+		update t_overall_seo set 
+		seo_title_cn = #{seoTitleCn},
+		seo_title_en = #{seoTitleEn},
+		seo_keyword_cn = #{seoKeywordCn},
+		seo_keyword_en = #{seoKeywordEn},
+		seo_description_cn = #{seoDescriptionCn},
+		seo_description_en = #{seoDescriptionEn},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	
+	<!-- 删除整体SEO信息 -->
+	<delete id="delete" parameterType="Integer">
+		delete from t_overall_seo
+		where id = #{id}
+	</delete>
+
+    <!-- 查询单个整体SEO信息 -->
+    <select id="queryById" parameterType="Integer" resultMap="overallSeo">
+		<include refid="Base_Column_List" />
+		from t_overall_seo
+		where id = #{id}
+	</select>
+</mapper>

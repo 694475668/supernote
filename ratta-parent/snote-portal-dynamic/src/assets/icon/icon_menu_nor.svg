@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>icon_menu_nor</title>
+    <desc>Created with Sketch.</desc>
+    <g id="博客" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="05.1.1_列表" transform="translate(-1646.000000, -28.000000)">
+            <g id="Nav">
+                <g id="icon_menu_nor" transform="translate(1646.000000, 28.000000)">
+                    <g>
+                        <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M5,6 L19,6" id="Line" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"></path>
+                        <path d="M5,12 L19,12" id="Line" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"></path>
+                        <path d="M5,18 L19,18" id="Line" stroke="#FFFFFF" stroke-width="1.4" stroke-linecap="round"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

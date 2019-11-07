@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.FeedbackRecordMapper">
+	<resultMap id="feedbackRecord" type="FeedbackRecordDO">
+		<id column="id" property="id" />
+		<result column="equipment_number" property="equipmentNumber" />
+		<result column="name" property="name" />
+		<result column="area" property="area" />
+		<result column="country_code" property="countryCode" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="description" property="description" />
+		<result column="status" property="status" />
+		<result column="remark" property="remark" />
+		<result column="create_time" property="createTime" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		select id, equipment_number, name,area,country_code,telephone,email, description, status,remark, 
+		create_time,update_time,update_user
+	</sql>
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="status != null and status !='' ">
+			and status = #{status}
+		</if>
+		<if test="equipmentNumber !=null and equipmentNumber !='' ">
+			and equipment_number = #{equipmentNumber}
+		</if>
+		<if test="telephone !=null and telephone !='' ">
+			and telephone = #{telephone}
+		</if>
+		<if test="email !=null and email !='' ">
+			and email = #{email}
+		</if>
+		<if test="description !=null and description !='' ">
+			and description like concat('%',trim(#{description}),'%')
+		</if>
+	</sql>
+
+    <!-- 查询所有问题反馈信息 -->
+	<select id="query" resultMap="feedbackRecord" parameterType="FeedbackRecordDO">
+		<include refid="Base_Column_List" />
+		from t_feedback_record 
+		where 1=1 
+		<include refid="select_param" />
+	</select>
+	
+	<!-- 新增问题反馈信息 -->
+	<insert id="save" parameterType="FeedbackRecordDO">
+		insert into t_feedback_record ( 
+		equipment_number, 
+		name,
+		area, 
+		country_code, 
+		telephone, 
+		email, 
+		description, 
+		create_time)
+		values 
+		(#{equipmentNumber},
+		#{name},
+		#{area},
+		#{countryCode},
+		#{telephone},
+		#{email},
+		#{description}, 
+		#{createTime})
+	</insert>
+	
+	<!-- 修改问题反馈部分字段 -->
+	<update id="updatePart" parameterType="FeedbackRecordDO">
+		update t_feedback_record set 
+		<if test="status != null and status !='' ">
+			status = #{status},
+		</if>
+		<if test="remark !=null and remark !='' ">
+			remark = #{remark},
+		</if>
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+</mapper>

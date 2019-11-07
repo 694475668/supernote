@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.BlogMapper">
+
+    <resultMap id="sqlSelectBase" type="BlogDO">
+        <id property="id" column="id"></id>
+        <result property="seq" column="seq"></result>
+        <result property="urlMobile" column="url_mobile"></result>
+        <result property="urlPc" column="url_pc"></result>
+        <result property="titleCn" column="title_cn"></result>
+        <result property="titleEn" column="title_en"></result>
+        <result property="authorCn" column="author_cn"></result>
+        <result property="authorEn" column="author_en"></result>
+        <result property="contentCn" column="content_cn"></result>
+        <result property="contentEn" column="content_en"></result>
+        <result property="seoKeywordCn" column="seo_keyword_cn"></result>
+        <result property="seoKeywordEn" column="seo_keyword_en"></result>
+        <result property="seoDescriptionCn" column="seo_description_cn"></result>
+        <result property="seoDescriptionEn" column="seo_description_en"></result>
+        <result property="line" column="line"></result>
+        <result property="viewCount" column="view_count"></result>
+        <result property="viewCountReal" column="view_count_real"></result>
+        <result property="commentsCount" column="comments_count"></result>
+        <result property="commentsCountReal" column="comments_count_real"></result>
+        <result property="thumbsCount" column="thumbs_count"></result>
+        <result property="thumbsCountReal" column="thumbs_count_real"></result>
+        <result property="recommendFlag" column="recommend_flag"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+    </resultMap>
+
+    <!-- 查询推荐文章   -->
+    <select id="recommendBlog" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language=='ZH-CN'">
+                select
+                id,seq,author_cn,url_mobile,url_pc,title_cn,content_cn,seo_keyword_cn,seo_description_cn,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' and recommend_flag='Y' and id!=#{id} order by seq asc
+            </when>
+            <when test="language=='EN'">
+                select
+                id,seq,author_en,url_mobile,url_pc,title_en,content_en,seo_keyword_en,seo_description_en,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' and recommend_flag='Y' and id!=#{id} order by seq asc
+            </when>
+        </choose>
+    </select>
+    
+    <!--查询所有博客 -->
+	<select id="query" resultMap="sqlSelectBase">
+		select * from t_blog 
+	</select>
+	
+    <!--  查询所有博客  -->
+    <select id="listBlog" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language=='ZH-CN'">
+                select
+                id,seq,author_cn,url_mobile,url_pc,title_cn,content_cn,seo_keyword_cn,seo_description_cn,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' order by seq asc
+            </when>
+            <when test="language=='EN'">
+                select
+                id,seq,author_en,url_mobile,url_pc,title_en,content_en,seo_keyword_en,seo_description_en,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' order by seq asc
+            </when>
+            <otherwise>
+                select * from t_blog where 1=1
+                <if test="line!=null and line!=''">
+                    and line=#{line}
+                </if>
+                <if test="recommendFlag!=null and recommendFlag!=''">
+                    and recommend_flag=#{recommendFlag}
+                </if>
+                <if test="id!=null and id!=''">
+                    and id=#{id}
+                </if>
+                order by seq asc
+            </otherwise>
+        </choose>
+    </select>
+    <!--根据id查询博客信息-->
+    <select id="getBlogByIdForWebsite" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language=='ZH-CN'">
+                select
+                id,seq,author_cn,url_mobile,url_pc,title_cn,content_cn,seo_keyword_cn,seo_description_cn,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' and id=#{id} order by seq asc
+            </when>
+            <when test="language=='EN'">
+                select
+                id,seq,author_en,url_mobile,url_pc,title_en,content_en,seo_keyword_en,seo_description_en,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user
+                from t_blog where line='0' and id=#{id} order by seq asc
+            </when>
+        </choose>
+    </select>
+
+    <!--  判断序号是否存在   -->
+    <select id="seqIsExist" resultMap="sqlSelectBase">
+        select * from t_blog where seq=#{seq}
+    </select>
+
+    <!--根据id查询博客信息-->
+    <select id="getBlogById" resultMap="sqlSelectBase">
+        select * from t_blog where id=#{id}
+    </select>
+
+    <!-- 添加博客   -->
+    <insert id="insertBlog">
+        insert into t_blog(seq,author_cn,author_en,title_cn,title_en,content_cn,content_en,url_pc,url_mobile,seo_keyword_cn,seo_keyword_en,seo_description_cn,seo_description_en,line,view_count,comments_count,thumbs_count,recommend_flag,create_time,create_user,update_time,update_user) values (#{seq},#{authorCn},#{authorEn},#{titleCn},#{titleEn},#{contentCn},#{contentEn},#{urlPc},#{urlMobile}
+        ,#{seoKeywordCn},#{seoKeywordEn},#{seoDescriptionCn},#{seoDescriptionEn},#{line},#{viewCount},#{commentsCount},#{thumbsCount},#{recommendFlag},now(),#{createUser},now(),#{updateUser})
+    </insert>
+
+    <!-- 修改博客 -->
+    <update id="updateBlog">
+        UPDATE t_blog
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="seq !=null ">seq=#{seq},</if>
+            <if test="urlMobile !=null ">url_mobile=#{urlMobile},</if>
+            <if test="urlPc !=null ">url_pc=#{urlPc},</if>
+            <if test="titleCn !=null ">title_cn=#{titleCn},</if>
+            <if test="titleEn !=null ">title_en=#{titleEn},</if>
+            <if test="authorCn !=null ">author_cn=#{authorCn},</if>
+            <if test="authorEn !=null ">author_en=#{authorEn},</if>
+            <if test="contentCn !=null ">content_cn=#{contentCn},</if>
+            <if test="contentEn !=null ">content_en=#{contentEn},</if>
+            <if test="seoKeywordCn !=null ">seo_keyword_cn=#{seoKeywordCn},</if>
+            <if test="seoKeywordEn !=null ">seo_keyword_en=#{seoKeywordEn},</if>
+            <if test="seoDescriptionCn !=null ">seo_description_cn=#{seoDescriptionCn},</if>
+            <if test="seoDescriptionEn !=null ">seo_description_en=#{seoDescriptionEn},</if>
+            <if test="line !=null ">line=#{line},</if>
+            <if test="viewCount !=null ">view_count=#{viewCount},</if>
+            <if test="commentsCount !=null ">comments_count=#{commentsCount},</if>
+            <if test="thumbsCount !=null ">thumbs_count=#{thumbsCount},</if>
+            <if test="recommendFlag !=null ">recommend_flag=#{recommendFlag},</if>
+            <if test="updateTime !=null ">update_time=now(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+        </trim>
+    </update>
+
+    <!-- 删除博客   -->
+    <delete id="delBlog">
+        delete from t_blog where id=#{id}
+    </delete>
+
+    <!-- 修改序号-->
+    <update id="updateAllSeq" parameterType="hashmap">
+        update t_blog set
+        <if test="oldSeq lt newSeq">
+            seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;= #{newSeq}
+        </if>
+        <if test="oldSeq gt newSeq">
+            seq = seq+1 where seq &gt;= #{newSeq} and seq &lt; #{oldSeq}
+        </if>
+    </update>
+    
+    <!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string" resultType="Integer">
+		select max(seq) from t_blog
+	</select>
+	
+	<!-- 重新排列序号-->
+	<update id="updateReSeq" parameterType="hashmap">
+		update t_blog set 
+		seq = seq+1 where seq &gt; #{seq} -1
+	</update>
+</mapper>

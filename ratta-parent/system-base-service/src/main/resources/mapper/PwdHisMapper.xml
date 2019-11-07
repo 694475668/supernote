@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.PwdHisMapper">
+    <!-- 查询 -->
+    <select id="query" resultType="PwdHisDO">
+		select t.id,t.username,t.pwd,t.op_time as opTime from
+		(select t.* from (
+		select t.* from t_pwd_his t where t.username=#{username} order by
+		t.op_time desc
+		)t
+		)t limit 0,#{times};
+	</select>
+
+
+    <!-- 添加 -->
+    <insert id="savePwd">
+		insert into t_pwd_his(username,pwd,op_time)
+		values(#{username},#{pwd},sysdate());
+	</insert>
+</mapper>

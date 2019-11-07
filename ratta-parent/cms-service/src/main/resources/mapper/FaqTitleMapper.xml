@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.FaqTitleMapper">
+	<resultMap id="faqTitle" type="FaqTitleDO">
+		<id column="id" property="id" />
+		<result column="seq" property="seq" />
+		<result column="title_cn" property="titleCn" />
+		<result column="title_en" property="titleEn" />
+		<result column="type" property="type" />
+		<result column="line" property="line" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		select id, seq, 
+		title_cn,
+		title_en, type, line,
+		create_time,create_user,update_time,update_user
+	</sql>
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="type != null and type !='' ">
+			and type = #{type}
+		</if>
+		<if test="line !=null and line !='' ">
+			and line = #{line}
+		</if>
+	</sql>
+
+    <!-- 查询所有FAQ列表信息 -->
+	<select id="query" resultMap="faqTitle" parameterType="FaqTitleDO">
+		<include refid="Base_Column_List" />
+		from t_faq_title 
+		where 1=1 
+		<include refid="select_param" />
+	</select>
+	
+	<!-- 新增FAQ列表信息 -->
+	<insert id="save" parameterType="FaqTitleDO">
+		insert into t_faq_title (
+		seq, 
+		title_cn,
+		title_en, 
+		type, 
+		line,
+		create_time,
+		create_user,
+		update_time,
+		update_user)
+		values (
+		#{seq},
+		#{titleCn},
+		#{titleEn},
+		#{type}, 
+		#{line}, 
+		#{createTime}, 
+		#{createUser}, 
+		#{updateTime}, 
+		#{updateUser})
+	</insert>
+	
+	<!-- 修改FAQ列表信息 -->
+	<update id="update" parameterType="FaqTitleDO">
+		update t_faq_title set 
+		title_cn = #{titleCn},
+		title_en = #{titleEn},
+		type = #{type},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改FAQ标题上线下线 -->
+	<update id="updateLine" parameterType="FaqTitleDO">
+		update t_faq_title set 
+		line = #{line},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改FAQ标题序号-->
+	<update id="updateSeq" parameterType="FaqTitleDO">
+		update t_faq_title set 
+		seq = #{seq},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改所有FAQ标题序号-->
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_faq_title set 
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;= #{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt; #{oldSeq}
+		</if>
+		and type = #{type} 
+		and line = #{line}
+	</update>
+	
+	<!-- 删除FAQ列表信息 -->
+	<delete id="delete" parameterType="Integer">
+		delete from t_faq_title
+		where id = #{id}
+	</delete>
+
+    <!-- 查询单个FAQ列表信息 -->
+    <select id="queryById" parameterType="Integer" resultMap="faqTitle">
+		<include refid="Base_Column_List" />
+		from t_faq_title
+		where id = #{id}
+	</select>
+	
+	<!-- 通过类型查询FAQ列表信息 -->
+    <select id="queryByType" parameterType="hashmap" resultMap="faqTitle">
+        <if test='line ==""'>
+			<include refid="Base_Column_List" />
+		    from t_faq_title where
+		    type = #{type} 
+		    order by seq asc
+		</if>
+		
+		<if test="line != null and line !='' ">
+		    select t.*
+		    from (
+			    <include refid="Base_Column_List" />
+				from t_faq_title
+				where seq in (SELECT seq FROM t_faq_title where type = #{type} GROUP BY seq HAVING count(seq) > 1) and line =#{line} 
+				and type = #{type} 
+		        union  
+		        <include refid="Base_Column_List" />
+				from t_faq_title where type = #{type} and line &lt;&gt; '2' GROUP BY seq HAVING count(seq) = 1 
+				<if test='line=="0"'>
+					and line = '0'
+				</if>
+		    ) t order by t.seq asc
+		</if>
+	</select>
+	
+	<!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string" resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0 end from t_faq_title where
+		type = #{type} 
+	</select>
+	
+	<select id="queryBySeqAndLine" parameterType="hashmap" resultMap="faqTitle">
+		<include refid="Base_Column_List" />
+		from t_faq_title
+		where type = #{type} and seq = #{seq} and line = #{line} 
+	</select>
+	
+	<!-- 根据条件查询faq标题信息 -->
+    <select id="queryByParam" parameterType="hashmap" resultMap="faqTitle">
+		<include refid="Base_Column_List" />
+		from t_faq_title
+		where type = #{type} and seq = #{seq}
+	</select>
+</mapper>

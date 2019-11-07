@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.ProductDescriptionMapper">
+	<resultMap id="productDescriptionDO"
+		type="ProductDescriptionDO">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title_cn" property="titleCn" jdbcType="VARCHAR" />
+		<result column="title_en" property="titleEn" jdbcType="VARCHAR" />
+		<result column="product_picture_url" property="productPictureUrl" jdbcType="VARCHAR" />
+		<result column="description_pc_cn" property="descriptionPcCn" jdbcType="LONGVARCHAR" />
+		<result column="description_pc_en" property="descriptionPcEn" jdbcType="LONGVARCHAR" />
+		<result column="description_mobile_cn" property="descriptionMobileCn" jdbcType="LONGVARCHAR" />
+		<result column="description_mobile_en" property="descriptionMobileEn" jdbcType="LONGVARCHAR" />
+		<result column="type" property="type" jdbcType="CHAR" />
+		<result column="line" property="line" jdbcType="CHAR" />
+		<result column="seq" property="seq" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="create_user" property="createUser" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="select_Column_List">
+		id, title_cn, title_en,
+		product_picture_url,description_pc_cn,
+		description_pc_en,
+		description_mobile_cn, description_mobile_en, type,
+		line, seq, create_time, create_user, update_time, update_user
+	</sql>
+
+	<select id="selectProductDescription"
+		resultMap="productDescriptionDO" parameterType="hashmap">
+		select
+		<include refid="select_Column_List" />
+		from t_product_description
+		where 1=1
+		<if test="id != null and id !='' ">
+			and id = #{id}
+		</if>
+		<if test="type != null and type !='' ">
+			and type = #{type}
+		</if>
+		<if test="line != null and line !='' ">
+			and line = #{line}
+		</if>
+		<if test="seq != null and seq !='' ">
+			and seq = #{seq}
+		</if>
+	</select>
+	
+	<select id="queryProductDescriptionList"
+		resultMap="productDescriptionDO" parameterType="hashmap">
+		select
+		<include refid="select_Column_List" />
+		  from t_product_description
+		  where seq in (select seq from t_product_description where type = #{type} group by seq having count(seq) > 1) 
+		  	and line = #{line} and type = #{type}
+		  union
+		  select
+		        <include refid="select_Column_List" />
+		  from t_product_description where type = #{type} and line &lt;&gt; '2' group by seq having count(seq) = 1 
+		  <if test='line=="0"'>
+			 and line = '0'
+		  </if>
+		  order by seq
+	</select>
+
+	<select id="queryById" resultMap="productDescriptionDO"
+		parameterType="hashmap">
+		select
+		<include refid="select_Column_List" />
+		from t_product_description
+		where id = #{id}
+	</select>
+
+	<select id="queryBySeqAndLine" resultMap="productDescriptionDO"
+		parameterType="hashmap">
+		select
+		<include refid="select_Column_List" />
+		from t_product_description
+		where type = #{type} and line = #{line} and
+		seq = #{seq}
+	</select>
+
+	<insert id="insert" parameterType="productDescriptionDO">
+		insert into
+		t_product_description (title_cn, title_en, product_picture_url,
+		type,
+		line, seq,
+		create_time, create_user, update_time,
+		update_user,
+		description_pc_cn, description_pc_en,
+		description_mobile_cn,
+		description_mobile_en
+		)
+		values (#{titleCn},
+		#{titleEn},#{productPictureUrl},
+		#{type}, '2', #{seq},
+		sysdate(),
+		#{createUser}, sysdate(),
+		#{updateUser},
+		#{descriptionPcCn,jdbcType=LONGVARCHAR},
+		#{descriptionPcEn,jdbcType=LONGVARCHAR},
+		#{descriptionMobileCn,jdbcType=LONGVARCHAR},
+		#{descriptionMobileEn,jdbcType=LONGVARCHAR}
+		)
+	</insert>
+
+	<update id="updateById" parameterType="productDescriptionDO">
+		update
+		t_product_description
+		set title_cn = #{titleCn},
+		title_en = #{titleEn},
+		product_picture_url = #{productPictureUrl},
+		update_time = sysdate(),
+		update_user = #{updateUser},
+		description_pc_cn
+		= #{descriptionPcCn,jdbcType=LONGVARCHAR},
+		description_pc_en =
+		#{descriptionPcEn,jdbcType=LONGVARCHAR},
+		description_mobile_cn =
+		#{descriptionMobileCn,jdbcType=LONGVARCHAR},
+		description_mobile_en =
+		#{descriptionMobileEn,jdbcType=LONGVARCHAR}
+		where id = #{id}
+	</update>
+
+	<update id="updateLine" parameterType="hashmap">
+		update
+		t_product_description
+		set line = #{line},
+		update_time = sysdate(),
+		update_user = #{userName}
+		where id = #{id}
+	</update>
+
+	<!-- 修改序号 -->
+	<update id="updateSeq" parameterType="productDescriptionDO">
+		update
+		t_product_description set
+		seq = #{seq},
+		update_time = sysdate(),
+		update_user = #{updateUser}
+		where id = #{id}
+	</update>
+
+	<!-- 修改所有序号 -->
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_product_description set
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+			#{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+			#{oldSeq}
+		</if>
+		and type = #{type}
+		and line = #{line}
+	</update>
+
+	<delete id="deleteById" parameterType="hashmap">
+		delete from
+		t_product_description
+		where id = #{id}
+	</delete>
+
+	<!-- 查询最大的排序 -->
+	<select id="queryMaxSeq" parameterType="string"
+		resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end from t_product_description where
+		type = #{type}
+	</select>
+
+</mapper>

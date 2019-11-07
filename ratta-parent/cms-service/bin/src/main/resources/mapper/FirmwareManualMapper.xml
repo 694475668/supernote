@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.FirmwareManualMapper">
+	<resultMap id="firmwareManual" type="FirmwareManualDO">
+		<id column="id" property="id" />
+		<result column="seq" property="seq" />
+		<result column="type" property="type" />
+		<result column="version" property="version" />
+		<result column="line" property="line" />
+		<result column="size" property="size" />
+		<result column="url_cn" property="urlCn" />
+		<result column="url_en" property="urlEn" />
+		<result column="title_cn" property="titleCn" />
+		<result column="title_en" property="titleEn" />
+		<result column="description_cn" property="descriptionCn" />
+		<result column="description_en" property="descriptionEn" />
+		<result column="seo_keyword_cn" property="seoKeywordCn" />
+		<result column="seo_keyword_en" property="seoKeywordEn" />
+		<result column="seo_description_cn" property="seoDescriptionCn" />
+		<result column="seo_description_en" property="seoDescriptionEn" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		select id, seq, type,version,line,size,url_cn,url_en,title_cn,title_en, description_cn, description_en,
+		seo_keyword_cn, seo_keyword_en,seo_description_cn,seo_description_en,
+		create_time,create_user,update_time,update_user
+	</sql>
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="type != null and type !='' ">
+			and type = #{type}
+		</if>
+		<if test="line !=null and line !='' ">
+			and line = #{line}
+		</if>
+	</sql>
+
+    <!-- 查询所有固件说明书列表信息 -->
+	<select id="query" resultMap="firmwareManual" parameterType="FirmwareManualDO">
+		<include refid="Base_Column_List" />
+		from t_firmware_manual 
+		where 1=1 
+		<include refid="select_param" />
+	</select>
+	
+	<!-- 新增固件说明书列表信息 -->
+	<insert id="save" parameterType="FirmwareManualDO">
+		insert into t_firmware_manual (
+		seq, 
+		type, 
+		version,
+		line,
+		size,
+		url_cn,
+		url_en,
+		title_cn,
+		title_en,
+		description_cn,
+		description_en,
+		seo_keyword_cn, 
+		seo_keyword_en,
+		seo_description_cn,
+		seo_description_en,
+		create_time,
+		create_user,
+		update_time,
+		update_user)
+		values (
+		#{seq},
+		#{type}, 
+		#{version}, 
+		#{line},
+		#{size},
+		#{urlCn},
+		#{urlEn},
+		#{titleCn},
+		#{titleEn},
+		#{descriptionCn},
+		#{descriptionEn},
+		#{seoKeywordCn},
+		#{seoKeywordEn}, 
+		#{seoDescriptionCn}, 
+		#{seoDescriptionEn}, 
+		#{createTime}, 
+		#{createUser}, 
+		#{updateTime}, 
+		#{updateUser})
+	</insert>
+	
+	<!-- 修改固件说明书列表信息 -->
+	<update id="update" parameterType="FirmwareManualDO">
+		update t_firmware_manual set 
+		type = #{type},
+		version = #{version},
+		url_cn = #{urlCn},
+		url_en = #{urlEn},
+		title_cn = #{titleCn},
+		title_en = #{titleEn},
+		description_cn = #{descriptionCn},
+		description_en = #{descriptionEn},
+		seo_keyword_cn = #{seoKeywordCn},
+		seo_keyword_en = #{seoKeywordEn},
+		seo_description_cn = #{seoDescriptionCn},
+		seo_description_en = #{seoDescriptionEn},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改固件说明书标题上线下线 -->
+	<update id="updateLine" parameterType="FirmwareManualDO">
+		update t_firmware_manual set 
+		line = #{line},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改固件说明书标题序号-->
+	<update id="updateSeq" parameterType="FirmwareManualDO">
+		update t_firmware_manual set 
+		seq = #{seq},
+		update_time = #{updateTime},
+		update_user = #{updateUser} 
+		where id = #{id}
+	</update>
+	
+	<!-- 修改所有固件说明书标题序号-->
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_firmware_manual set 
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;= #{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt; #{oldSeq}
+		</if>
+		and type = #{type}
+	</update>
+	
+	<!-- 删除固件说明书列表信息 -->
+	<delete id="delete" parameterType="Integer">
+		delete from t_firmware_manual
+		where id = #{id}
+	</delete>
+
+    <!-- 查询单个固件说明书列表信息 -->
+    <select id="queryById" parameterType="Integer" resultMap="firmwareManual">
+		<include refid="Base_Column_List" />
+		from t_firmware_manual
+		where id = #{id}
+	</select>
+	
+	<!-- 根据条件查询固件说明书标题信息 -->
+    <select id="queryByParam" parameterType="hashmap" resultMap="firmwareManual">
+		<include refid="Base_Column_List" />
+		from t_firmware_manual
+		where type = #{type} and seq = #{seq}
+	</select>
+	
+	<!-- 根据语言和类型查询固件说明书列表信息 -->
+    <select id="queryByTypeAndLan" parameterType="string" resultMap="firmwareManual">
+		<include refid="Base_Column_List" />
+		from t_firmware_manual
+		where line = '0' and type = #{type}
+	</select>
+	
+	<!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string" resultType="Integer">
+		select max(seq) from t_firmware_manual where
+		type = #{type} 
+	</select>
+	
+	<!-- 重新排列序号-->
+	<update id="updateReSeq" parameterType="hashmap">
+		update t_firmware_manual set 
+		seq = seq+1 where seq &gt; #{seq} -1
+		and type = #{type}
+	</update>
+</mapper>

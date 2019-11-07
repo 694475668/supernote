@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.PartSeriesMapper">
+	<resultMap id="partSeriesDO" type="PartSeriesDO">
+		<id column="id" property="id" />
+		<result column="serial_number" property="serialNumber" />
+		<result column="seq" property="seq" />
+		<result column="description_cn" property="descriptionCn" />
+		<result column="description_en" property="descriptionEn" />
+		<result column="home_description_cn"
+			property="homeDescriptionCn" />
+		<result column="home_description_en"
+			property="homeDescriptionEn" />
+		<result property="buttonLinkCn" column="button_link_cn"></result>
+		<result property="buttonLinkEn" column="button_link_en"></result>
+		<result property="buttonNameCn" column="button_name_cn"></result>
+		<result property="buttonNameEn" column="button_name_en"></result>
+		<result column="type" property="type" />
+		<result column="price_cn" property="priceCn" />
+		<result column="price_en" property="priceEn" />
+		<result column="muti_url" property="mutiUrl" />
+		<result column="content_pc_cn" property="contentPcCn" />
+		<result column="content_pc_en" property="contentPcEn" />
+		<result column="content_mobile_cn" property="contentMobileCn" />
+		<result column="content_mobile_en" property="contentMobileEn" />
+		<result column="recommend_id" property="recommendId" />
+		<result column="recommend_url" property="recommendUrl" />
+		<result column="line" property="line" />
+		<result column="seo_title_cn" property="seoTitleCn" />
+		<result column="seo_title_en" property="seoTitleEn" />
+		<result column="seo_keyword_cn" property="seoKeywordCn" />
+		<result column="seo_keyword_en" property="seoKeywordEn" />
+		<result column="seo_description_cn" property="seoDescriptionCn" />
+		<result column="seo_description_en" property="seoDescriptionEn" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, serial_number, seq, description_cn, description_en,
+		home_description_cn, home_description_en,
+		button_link_cn,button_name_cn,
+		button_link_en,button_name_en,
+		type,
+		price_cn,
+		price_en,
+		muti_url,
+		seo_title_cn,
+		seo_title_en,
+		seo_keyword_cn,
+		seo_keyword_en,
+		seo_description_cn,
+		seo_description_en,
+		content_pc_cn,
+		content_pc_en,
+		content_mobile_cn,
+		content_mobile_en,recommend_id,
+		recommend_url,
+		line,
+		create_time,
+		create_user,
+		update_time, update_user
+	</sql>
+
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="type != null and type !='' ">
+			and type = #{type}
+		</if>
+		<if test="line !=null and line !='' ">
+			and line = #{line}
+		</if>
+		<if test="serialNumber !=null and serialNumber !='' ">
+			and serial_number = #{serialNumber}
+		</if>
+	</sql>
+
+	<select id="query" resultMap="partSeriesDO"
+		parameterType="partSeriesDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part_series
+		where 1=1
+		<include refid="select_param" />
+	</select>
+
+
+	<select id="queryOrderByDeq" resultMap="partSeriesDO"
+		parameterType="hashmap">
+		select
+		<include refid="Base_Column_List" />
+		from (select
+		<include refid="Base_Column_List" />
+		from t_part_series
+		where seq in (select seq from t_part_series group by
+		seq having count(seq)
+		> 1 ) and
+		line =#{line}
+		union
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM t_part_series where line != '2' group by seq having count(seq) =1
+		<if test='line == "0"'>
+			and line='0'
+		</if>
+		) h
+		<where>
+			<if test="type !=null and type !='' ">
+				and type = #{type}
+			</if>
+		</where>
+		order by seq asc
+	</select>
+
+	<select id="queryById" parameterType="Integer"
+		resultMap="partSeriesDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part_series
+		where id = #{id}
+	</select>
+
+	<select id="queryBySerialNumber" parameterType="hashmap"
+		resultMap="partSeriesDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part_series
+		where serial_number = #{serialNumber}
+		and line =
+		#{line}
+	</select>
+
+	<select id="queryBySeqAndLine" parameterType="hashmap"
+		resultMap="partSeriesDO">
+		select
+		<include refid="Base_Column_List" />
+		from t_part_series
+		where seq = #{seq}
+		and line = #{line}
+	</select>
+
+	<insert id="insert" parameterType="partSeriesDO">
+		insert into t_part_series
+		(serial_number, seq,
+		description_cn, description_en,
+		home_description_cn, home_description_en,
+		button_link_cn,button_name_cn,
+		button_link_en,button_name_en,type,
+		price_cn,
+		price_en,
+		muti_url,
+		seo_title_cn,
+		seo_title_en,
+		seo_keyword_cn, 
+		seo_keyword_en,
+		seo_description_cn,
+		seo_description_en,
+		content_pc_cn, content_pc_en,
+		content_mobile_cn,
+		content_mobile_en,recommend_id,
+		recommend_url, line,
+		create_time, create_user,
+		update_time, update_user)
+		values
+		(#{serialNumber}, #{seq},
+		#{descriptionCn}, #{descriptionEn},
+		#{homeDescriptionCn},
+		#{homeDescriptionEn},
+		#{buttonLinkCn},
+		#{buttonNameCn},
+		#{buttonLinkEn},
+		#{buttonNameEn},
+		#{type},
+		#{priceCn},
+		#{priceEn},
+		#{mutiUrl},
+		#{seoTitleCn},
+		#{seoTitleEn},
+		#{seoKeywordCn},
+		#{seoKeywordEn}, 
+		#{seoDescriptionCn}, 
+		#{seoDescriptionEn}, 
+		#{contentPcCn},
+		#{contentPcEn},
+		#{contentMobileCn},#{contentMobileEn},
+		#{recommendId},#{recommendUrl},
+		#{line},
+		#{createTime},
+		#{createUser},
+		#{updateTime},
+		#{updateUser})
+	</insert>
+
+	<!-- 修改 -->
+	<update id="update" parameterType="partSeriesDO">
+		update t_part_series set
+		serial_number = #{serialNumber},
+		description_cn = #{descriptionCn},
+		description_en = #{descriptionEn},
+		seo_title_cn = #{seoTitleCn},
+		seo_title_en = #{seoTitleEn},
+		seo_keyword_cn = #{seoKeywordCn},
+		seo_keyword_en = #{seoKeywordEn},
+		seo_description_cn = #{seoDescriptionCn},
+		seo_description_en = #{seoDescriptionEn},
+		home_description_cn =
+		#{homeDescriptionCn},
+		home_description_en= #{homeDescriptionEn},
+		button_link_cn
+		= #{buttonLinkCn},
+		button_name_cn =
+		#{buttonNameCn},
+		button_link_en =
+		#{buttonLinkEn},
+		button_name_en =
+		#{buttonNameEn},
+		type =
+		#{type},
+		price_cn = #{priceCn},
+		price_en =
+		#{priceEn},
+		muti_url =
+		#{mutiUrl},
+		content_pc_cn =
+		#{contentPcCn},
+		content_pc_en =
+		#{contentPcEn},
+		content_mobile_cn =
+		#{contentMobileCn},
+		content_mobile_en =
+		#{contentMobileEn},
+		recommend_id =
+		#{recommendId},
+		recommend_url =
+		#{recommendUrl},
+		line =
+		#{line},
+		update_time =
+		#{updateTime},
+		update_user =
+		#{updateUser}
+		where id = #{id}
+	</update>
+
+	<update id="updateLine" parameterType="partSeriesDO">
+		update t_part_series set
+		line = #{line},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where id = #{id}
+	</update>
+
+	<update id="updateSeq" parameterType="partSeriesDO">
+		update t_part_series set
+		seq = #{seq},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where id = #{id}
+	</update>
+
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_part_series set
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+			#{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+			#{oldSeq}
+		</if>
+		and line = #{line}
+	</update>
+
+	<delete id="delete" parameterType="Integer">
+		delete from t_part_series
+		where
+		id =
+		#{id}
+	</delete>
+
+	<!-- 查询最大的排序 -->
+	<select id="queryMaxSeq" parameterType="string"
+		resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end from t_part_series
+	</select>
+
+</mapper>

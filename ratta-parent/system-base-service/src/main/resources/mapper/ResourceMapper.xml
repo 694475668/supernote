@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.ResourceMapper">
+
+    <resultMap type="ResourceDO"
+               id="resourceBase">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="remark" property="remark"/>
+        <result column="seq" property="seq"/>
+        <result column="url" property="url"/>
+        <result column="pname" property="pName"/>
+        <result column="pid" property="pid"/>
+        <result column="tresourcetype_id" property="tresourcetypeId"/>
+        <result column="system_id" property="systemId"/>
+        <association property="dictionaryDO"
+                     javaType="DictionaryDO">
+            <id column="value" property="value"></id>
+            <result column="value_cn" property="valueMeaning"/>
+            <result column="system_value" property="systemValue"/>
+            <result column="system_value_cn" property="systemValueCn"/>
+        </association>
+    </resultMap>
+
+    <sql id="sqlBaseSelect">
+        SELECT DISTINCT r.id,r.name,r.remark,
+        r.seq,r.url,r.pid,b1.value,b1.value_cn,b2.value system_value,b2.value_cn system_value_cn FROM t_resource r
+        left join t_dictionary b1 on r.tresourcetype_id = b1.value
+        left join t_dictionary b2 on r.system_id = b2.value WHERE b1.name='TRESOURCETYPE_ID' AND b2.`name` ='SYSTEM_ID'
+        <choose>
+            <when test="pid !=null ">
+                and r.pid=#{pid}
+            </when>
+            <otherwise>
+                and r.pid IS NULL
+            </otherwise>
+        </choose>
+        ORDER BY r.seq;
+    </sql>
+
+    <!--通过pid查询所有资源信息-->
+    <select id="queryAllResourceByParam" resultMap="resourceBase">
+        <include refid="sqlBaseSelect"/>
+    </select>
+
+    <!--  查询当前用户所属左边栏资源列表  -->
+    <select id="queryLeftResource" resultMap="resourceBase">
+        SELECT DISTINCT r.id,r.name,r.remark,
+        r.seq,r.url,r.pid,r.system_id
+        FROM t_resource r,t_dictionary d
+        WHERE r.id IN(
+        SELECT tresource_id FROM t_role_tresource WHERE trole_id in (
+        SELECT trole_id FROM t_user_trole WHERE tuser_id=(
+        SELECT id FROM t_user where id=#{userId})))
+        AND r.system_id = d.value and d.name='SYSTEM_ID'
+        <choose>
+            <when test="pid !=null ">
+                and r.pid=#{pid}
+            </when>
+            <otherwise>
+                and r.pid IS NULL
+            </otherwise>
+        </choose>
+        AND system_id=#{systemId} ORDER BY r.seq;
+    </select>
+
+    <!--id查询父级菜单-->
+    <select id="queryResourceByParam" resultMap="resourceBase">
+       SELECT e.id,e.name,e.remark,
+        e.seq,e.url,e.pid,f.`name` pname,e.d_id,e.value_cn FROM
+(SELECT r.id,r.name,r.remark,
+        r.seq,r.url,r.pid,d.id as d_id,d.value_cn FROM t_resource r inner join t_dictionary d on r.tresourcetype_id =
+        d.value where 1=1  AND r.id=#{pid} and d.name='TRESOURCETYPE_ID') e INNER JOIN(SELECT id,`name` FROM t_resource WHERE id=(SELECT pid FROM t_resource WHERE id=#{pid})) f ON e.pid=f.id
+    </select>
+
+    <!--根据id查询-->
+    <select id="queryResourceById" resultMap="resourceBase">
+      select e.id,e.name,e.remark,e.seq,e.url,e.pid,e.tresourcetype_id,e.system_id from
+	  t_resource e
+      where e.id =#{id}
+    </select>
+
+    <!--删除资源-->
+    <delete id="delResource" parameterType="String">
+        DELETE FROM t_resource WHERE id=#{id}
+    </delete>
+
+    <!--添加资源-->
+    <insert id="addResource">
+       INSERT INTO t_resource
+       VALUES(#{id},#{name},#{remark},#{seq},#{url},#{pid},#{dictionaryDO.id},#{dictionaryDO.value},
+       #{createTime},#{createUser},#{updateTime},#{updateUser});
+    </insert>
+
+    <!--修改资源-->
+    <update id="updateResource">
+        UPDATE t_resource
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="name !=null ">name=#{name},</if>
+            <if test="remark !=null ">remark=#{remark},</if>
+            <if test="seq !=null ">seq=#{seq},</if>
+            <if test="url !=null ">url=#{url},</if>
+            <if test="pid !=null ">pid=#{pid},</if>
+            <if test="dictionaryDO.id !=null ">tresourcetype_id=#{dictionaryDO.id},</if>
+            <if test="dictionaryDO.value !=null ">system_id=#{dictionaryDO.value},</if>
+            <if test="updateTime !=null ">update_time=#{updateTime},</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+        </trim>
+    </update>
+
+    <!-- 查询该资源下是否有角色 -->
+    <select id="hasRoleOwnResource" parameterType="String"
+            resultType="long">
+		select count(1) from t_role_tresource t
+		where t.tresource_id = #{id}
+		and t.trole_id !='0'
+	</select>
+</mapper>

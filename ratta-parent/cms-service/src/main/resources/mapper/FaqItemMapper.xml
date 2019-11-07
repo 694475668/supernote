@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.FaqItemMapper">
+	<resultMap id="faqItem" type="FaqItemDO">
+		<id column="id" property="id" />
+		<result column="seq" property="seq" />
+		<result column="faq_title_id" property="faqTitleId" />
+		<result column="title_cn" property="titleCn" />
+		<result column="type" property="type" />
+		<result column="question_cn" property="questionCn" />
+		<result column="question_en" property="questionEn" />
+		<result column="answer_cn" property="answerCn" />
+		<result column="answer_en" property="answerEn" />
+		<result column="line" property="line" />
+		<result column="create_time" property="createTime" />
+		<result column="create_user" property="createUser" />
+		<result column="update_time" property="updateTime" />
+		<result column="update_user" property="updateUser" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		select t.id, t.seq, t.faq_title_id,
+		s.title_cn title_cn,
+		s.type type,
+		t.question_cn, t.question_en, t.answer_cn,t.answer_en,
+		t.line,t.create_time,t.create_user,t.update_time,t.update_user
+	</sql>
+	<sql id="Base_Column">
+		select
+		question_cn,
+		question_en,
+		answer_cn,
+		line,
+		seq,
+		answer_en
+	</sql>
+
+	<!-- 查询参数 -->
+	<sql id="select_param">
+		<if test="type != null and type !='' ">
+			and s.type = #{type}
+		</if>
+		<if test="faqTitleId != null and faqTitleId !='' ">
+			and s.id = #{faqTitleId}
+		</if>
+		<if test="line !=null and line !='' ">
+			and t.line = #{line}
+		</if>
+	</sql>
+
+	<!-- 查询所有faq条目信息 -->
+	<select id="query" resultMap="faqItem" parameterType="FaqItemDO">
+		<include refid="Base_Column_List" />
+		from t_faq_item t LEFT JOIN t_faq_title s ON t.faq_title_id = s.id
+		where 1=1
+		<include refid="select_param" />
+	</select>
+
+	<!-- 不分页查询所有faq条目信息 -->
+	<select id="queryAllNoPage" resultMap="faqItem" parameterType="hashmap">
+		<if test='line ==""'>
+			<include refid="Base_Column" />
+		    from t_faq_item 
+		    where faq_title_id = #{faqTitleId}
+		    order by seq asc
+		</if>
+		
+		<if test="line != null and line !='' ">
+		    select
+			t.question_cn,
+			t.question_en,
+			t.answer_cn,
+			t.line,
+			t.seq,
+			t.answer_en 
+		    from (
+			    <include refid="Base_Column" />
+				from t_faq_item
+				where seq in (SELECT seq FROM t_faq_item where faq_title_id = #{faqTitleId} GROUP BY seq HAVING count(seq) > 1) and line =#{line} 
+				and faq_title_id = #{faqTitleId}
+		        union  
+		        <include refid="Base_Column" />
+				from t_faq_item where faq_title_id = #{faqTitleId} and line &lt;&gt; '2' GROUP BY seq HAVING count(seq) = 1 
+				<if test='line=="0"'>
+					and line = '0'
+				</if>
+		    ) t order by t.seq asc
+		</if>
+	</select>
+
+	<!-- 新增faq条目信息 -->
+	<insert id="save" parameterType="FaqItemDO">
+		insert into t_faq_item (
+		seq,
+		faq_title_id,
+		question_cn,
+		question_en,
+		answer_cn,
+		answer_en,
+		line,
+		create_time,
+		create_user,
+		update_time,
+		update_user)
+		values (
+		#{seq},
+		#{faqTitleId},
+		#{questionCn},
+		#{questionEn},
+		#{answerCn},
+		#{answerEn},
+		#{line},
+		#{createTime},
+		#{createUser},
+		#{updateTime},
+		#{updateUser})
+	</insert>
+
+	<!-- 修改faq条目信息 -->
+	<update id="update" parameterType="FaqItemDO">
+		update t_faq_item set
+		faq_title_id = #{faqTitleId},
+		question_cn = #{questionCn},
+		question_en =
+		#{questionEn},
+		answer_cn = #{answerCn},
+		answer_en = #{answerEn},
+		update_time = #{updateTime},
+		update_user =
+		#{updateUser}
+		where id = #{id}
+	</update>
+
+	<!-- 修改FAQ条目上线下线 -->
+	<update id="updateLine" parameterType="FaqItemDO">
+		update t_faq_item set
+		line
+		= #{line},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where id = #{id}
+	</update>
+
+	<!-- 修改FAQ条目序号 -->
+	<update id="updateSeq" parameterType="FaqItemDO">
+		update t_faq_item set
+		seq =
+		#{seq},
+		update_time = #{updateTime},
+		update_user = #{updateUser}
+		where id
+		= #{id}
+	</update>
+
+	<!-- 修改所有FAQ条目序号 -->
+	<update id="updateAllSeq" parameterType="hashmap">
+		update t_faq_item set
+		<if test="oldSeq lt newSeq">
+			seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+			#{newSeq}
+		</if>
+		<if test="oldSeq gt newSeq">
+			seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+			#{oldSeq}
+		</if>
+		and faq_title_id = #{faqTitleId}
+		and line = #{line}
+	</update>
+
+	<!-- 删除faq条目信息 -->
+	<delete id="delete" parameterType="Integer">
+		delete from t_faq_item
+		where id
+		= #{id}
+	</delete>
+
+	<!-- 查询单个faq条目信息 -->
+	<select id="queryById" parameterType="Integer"
+		resultMap="faqItem">
+		<include refid="Base_Column_List" />
+		from t_faq_item t LEFT JOIN t_faq_title s ON t.faq_title_id = s.id
+		where t.id = #{id}
+	</select>
+
+	<select id="queryBySeqAndLine" parameterType="hashmap"
+		resultMap="faqItem">
+		<include refid="Base_Column_List" />
+		from t_faq_item t LEFT JOIN t_faq_title s ON t.faq_title_id = s.id
+		where t.faq_title_id = #{faqTitleId} and t.seq = #{seq} and t.line =
+		#{line}
+	</select>
+
+	<!-- 根据条件查询faq条目信息 -->
+	<select id="queryByParam" parameterType="hashmap"
+		resultMap="faqItem">
+		<include refid="Base_Column_List" />
+		from t_faq_item t LEFT JOIN t_faq_title s ON t.faq_title_id = s.id
+		where t.faq_title_id = #{faqTitleId} and t.seq = #{seq}
+	</select>
+
+	<!-- 通过类型查询最大的排序 -->
+	<select id="queryMaxSeq" parameterType="int"
+		resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end from t_faq_item where
+		faq_title_id = #{faqTitleId}
+	</select>
+
+</mapper>

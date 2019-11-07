@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ratta.mapper.HomeBannerMapper">
+
+    <resultMap id="sqlSelectBase" type="HomeBannerDO">
+        <id property="id" column="id"></id>
+        <result property="seq" column="seq"></result>
+        <result property="colorPc" column="color_pc"></result>
+        <result property="colorMobile" column="color_mobile"></result>
+        <result property="urlMobile" column="url_mobile"></result>
+        <result property="urlPc" column="url_pc"></result>
+        <result property="nameCn" column="name_cn"></result>
+        <result property="nameEn" column="name_en"></result>
+        <result property="descriptionCn" column="description_cn"></result>
+        <result property="descriptionEn" column="description_en"></result>
+        <result property="type" column="type"></result>
+        <result property="buttonFlag" column="button_flag"></result>
+        <result property="buttonInnerOut" column="button_inner_out"></result>
+        <result property="productId" column="product_id"></result>
+        <result property="buttonLinkCn" column="button_link_cn"></result>
+        <result property="buttonLinkEn" column="button_link_en"></result>
+        <result property="buttonNameCn" column="button_name_cn"></result>
+        <result property="buttonNameEn" column="button_name_en"></result>
+        <result property="line" column="line"></result>
+        <result property="createTime" column="create_time"></result>
+        <result property="createUser" column="create_user"></result>
+        <result property="updateTime" column="update_time"></result>
+        <result property="updateUser" column="update_user"></result>
+    </resultMap>
+
+    <!-- 查询所有轮播图 -->
+    <select id="listHomeBanner" resultMap="sqlSelectBase">
+        <choose>
+            <when test="language!=null and language!=''">
+                select
+                id,seq,color_pc,color_mobile,url_mobile,url_pc,name_cn,name_en,description_cn,description_en,type,button_flag,button_inner_out,product_id,button_link_cn,button_link_en,button_name_cn,button_name_en,
+                line,create_time,create_user,update_time,update_user
+                FROM (SELECT * from t_home_banner where seq in (SELECT seq FROM t_home_banner GROUP BY seq HAVING
+                count(seq) > 1) and line =#{webLine}
+                union
+                SELECT * FROM t_home_banner where line != '2' GROUP BY seq HAVING count(seq) = 1
+                <if test='webLine=="0"'>
+                    and line='0'
+                </if>
+                ) h ORDER BY seq
+            </when>
+            <otherwise>
+                select * from t_home_banner where 1=1
+                <if test="line!=null and line!=''">
+                    and line=#{line}
+                </if>
+                <if test="type!=null and type!=''">
+                    and type=#{type}
+                </if>
+                order by type,line,seq asc
+            </otherwise>
+        </choose>
+    </select>
+    <!--根据id查询轮播图信息 -->
+    <select id="getHomeBannerById" resultMap="sqlSelectBase">
+		select * from
+		t_home_banner where id=#{id}
+	</select>
+
+    <!--根据条件查询轮播图信息 -->
+    <select id="queryBySeqAndLine" resultMap="sqlSelectBase">
+		select * from
+		t_home_banner where seq=#{seq} and
+		line=#{line} and type = #{type}
+	</select>
+
+    <!--查询所有记录 -->
+    <select id="query" resultMap="sqlSelectBase">
+		select * from t_home_banner
+	</select>
+    <!-- 添加轮播图 -->
+    <insert id="insertHomeBanner">
+		insert into
+		t_home_banner(seq,color_pc,color_mobile,url_mobile,url_pc,name_cn,name_en,description_cn,description_en,type,button_inner_out,product_id,button_link_cn,button_link_en,button_flag,button_name_cn,button_name_en,line,create_time,create_user,update_time,update_user)
+		values
+		(#{seq},#{colorPc},#{colorMobile},#{urlMobile},#{urlPc},#{nameCn},#{nameEn},#{descriptionCn}
+		,#{descriptionEn},#{type},#{buttonInnerOut},#{productId},#{buttonLinkCn}
+		,#{buttonLinkEn},#{buttonFlag},#{buttonNameCn},#{buttonNameEn}
+		,#{line},now(),#{createUser},now(),#{updateUser})
+	</insert>
+
+    <!-- 修改轮播图 -->
+    <update id="updateHomeBanner">
+        UPDATE t_home_banner
+        <trim prefix="set" suffixOverrides="," suffix="WHERE id=#{id}">
+            <if test="seq !=null ">seq=#{seq},</if>
+            <if test="colorPc !=null ">color_pc=#{colorPc},</if>
+            <if test="colorMobile !=null ">color_mobile=#{colorMobile},</if>
+            <if test="urlMobile !=null ">url_mobile=#{urlMobile},</if>
+            <if test="urlPc !=null ">url_pc=#{urlPc},</if>
+            <if test="nameCn !=null ">name_cn=#{nameCn},</if>
+            <if test="nameEn !=null ">name_en=#{nameEn},</if>
+            <if test="descriptionCn !=null ">description_cn=#{descriptionCn},</if>
+            <if test="descriptionEn !=null ">description_en=#{descriptionEn},</if>
+            <if test="type !=null ">type=#{type},</if>
+            <if test="buttonInnerOut !=null ">button_inner_out=#{buttonInnerOut},</if>
+            <if test="productId !=null ">product_id=#{productId},</if>
+            <if test="buttonLinkCn !=null ">button_link_cn=#{buttonLinkCn},</if>
+            <if test="buttonLinkEn !=null ">button_link_en=#{buttonLinkEn},</if>
+            <if test="buttonFlag !=null ">button_flag=#{buttonFlag},</if>
+            <if test="buttonNameCn !=null ">button_name_cn=#{buttonNameCn},</if>
+            <if test="buttonNameEn !=null ">button_name_en=#{buttonNameEn},</if>
+            <if test="line !=null ">line=#{line},</if>
+            <if test="updateTime !=null ">update_time=now(),</if>
+            <if test="updateUser !=null ">update_user=#{updateUser},</if>
+        </trim>
+    </update>
+
+    <!-- 删除轮播图 -->
+    <delete id="delHomeBanner">
+		delete from t_home_banner where id=#{id}
+	</delete>
+
+    <!-- 判断序号是否存在 -->
+    <select id="seqIsExist" resultMap="sqlSelectBase">
+		select * from t_home_banner
+		where seq=#{seq} and type=#{type}
+	</select>
+
+    <!-- 修改所有轮播图 -->
+    <update id="updateAllSeq" parameterType="hashmap">
+        update t_home_banner set
+        <if test="oldSeq lt newSeq">
+            seq = seq-1 where seq &gt; #{oldSeq} and seq &lt;=
+            #{newSeq}
+        </if>
+        <if test="oldSeq gt newSeq">
+            seq = seq+1 where seq &gt;= #{newSeq} and seq &lt;
+            #{oldSeq}
+        </if>
+        and type = #{type}
+        and line = #{line}
+    </update>
+
+    <!-- 查询最大的排序 -->
+    <select id="queryMaxSeq" parameterType="string"
+            resultType="Integer">
+		select case when max(seq) is not null then max(seq) else 0
+		end
+		from t_home_banner where
+		type = #{type}
+	</select>
+
+</mapper>
